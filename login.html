@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VanaPay Wallet App - Login Here</title>
+    <link rel="shortcut icon" href="./img/favicon.png"sizes="16x16" type="image/png">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    <!-- Background Carousel -->
+    <div class="carouselContainer">'
+        <div class="containers scale">
+            <img src="./img/1.jpg" alt="" style="width: 100%;">
+        </div>
+        <div class="containers scale">
+            <img src="./img/2.jpg" alt="" style="width: 100%;">
+        </div>
+        <div class="containers scale">
+            <img src="./img/3.jpg" alt="" style="width: 100%;">
+        </div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="loginCard">
+        <img src="./img/favicon.png" alt="" srcset="" class="loginLogo">
+        <div class="card">
+            <h1 class="loginHeader">Login Here</h1>
+            <form class="loginForm">
+                <label for="Username">Enter Username:</label> <br>
+                <input type="text" placeholder="Enter Username Here" class="input" id="enterUsername"> <br>
+                <label for="Username">Enter Password:</label> <br>
+                <input type="password" placeholder="Enter Password Here" class="input" id="enterPassword"> <br>
+                <a href="#" class="forgotPasswordLink">Forgot Password? Click Here</a> <br>
+                <input type="button" value="Login" class="loginButton" id="loginBtn"><br>
+                <a href="./signup.html" class="signupLink">Need an Account? Sign up Here</a>
+            </form>
+            <!-- dots -->
+            <div>
+                <span class="dots" onclick="currentSlide(1)"></span>
+                <span class="dots" onclick="currentSlide(2)"></span>
+                <span class="dots" onclick="currentSlide(3)"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/slideshow.js"></script>
+    <script type="module" src="./js/fetchLogin.js"></script>
+    <!-- <script src="./js/main.js"></script> -->
+</body>
+</html>
