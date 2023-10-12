@@ -11,6 +11,10 @@ export function sendToLogin(){
     location.replace(`http://127.0.0.1:5500/login.html`);
 }
 
+function logout(){
+    localStorage.clear();
+    location.replace(`http://127.0.0.1:5500/login.html`);
+}
 
 //Event Listener to log out the User
 if(logoutBtn){
