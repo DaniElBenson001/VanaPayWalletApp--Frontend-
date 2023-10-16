@@ -87,7 +87,7 @@ function getTransactionHistory(){
                 </td>
                 <td>${values.amount}</td>
                 <td>
-                    <span>${transacType}</span>
+                    <span>${values.transacType}</span>
                 </td>
                 <td>
                 <div class="acctName">${values.receiverInfo}</div>

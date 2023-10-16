@@ -705,7 +705,7 @@ tr:nth-child(even) {
     font-family: Inter-Bold;
     position: absolute;
     bottom: 0;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
     padding-right: 70px;
     right: 0;
     font-size: 32px;

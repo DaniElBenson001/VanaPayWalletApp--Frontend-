@@ -1,8 +1,7 @@
 import { sendToDashboard, sendToLogin, sendToSignUp, getUserLogin} from "./main.js";
-
+// import Swal from "../sweetalert2-sweetalert2-6bfd0b6/src/sweetalert2.js";
 var login = 'https://localhost:7007/api/User/login';
 let buttonIsClicked = false;
-
 
 const loginBtn = document.getElementById("loginBtn");
 
@@ -28,13 +27,31 @@ loginBtn.addEventListener('click', (e) => {
         if(res.status == true){
             localStorage.setItem("bearer", res.data.verificationToken);
             localStorage.setItem("Username", res.data.userName);
-            sendToDashboard();
             // console.log(res.data.verificationToken);
         }
-        if(res.statusMessage =="Username/Password is Incorrect"){
-            alert(res.statusMessage);
+        if(res.statusMessage == "Username/Password is Incorrect!" || res.status == false){
+            Swal.fire({
+                title: `Hi, ${getUserLogin().username} `,
+                text: `${res.statusMessage}`,
+                icon: 'error',
+                confirmButtonText: "OK",
+                confirmButtonColor: '#055496',
+            });
         }
-        alert(res.statusMessage);
+        if(res.statusMessage == "You are Logged in and ready to go")
+            Swal.fire({
+                title: `Hi, ${getUserLogin().username} `,
+                text: `${res.statusMessage}`,
+                icon: 'success',
+                confirmButtonText: "Let's Go",
+                confirmButtonColor: '#055496',
+                isConfirmed: true
+            }).then((result) => {
+                if(result.isConfirmed){
+                    sendToDashboard();
+                }
+            });
+            // alert(res.statusMessage)
         
       })
 });
