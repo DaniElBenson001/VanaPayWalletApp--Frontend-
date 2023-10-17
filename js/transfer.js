@@ -9,7 +9,7 @@ const bearer = localStorage.getItem("bearer");
 
 const acctNumInput = document.getElementById("accNumInput")
 const amountInput = document.getElementById("amount");
-const submit = document.getElementById("submit");
+const makeTransfer = document.getElementById("makeTransfer");
 
 //Data for the card to supply the user's Account Number 
 fetch(dashboardInfo, {
@@ -41,44 +41,58 @@ fetch(dashboardInfo, {
 });
 
 //Submit Event Listener to continue Transaction
-submit.addEventListener("click", function(){
-    //Logic to check if the User attempts to write a character that is not a digit
-    function numberValidator(){
-        let digitPattern = /\d/;
-        if(!digitPattern.test(amountInput.value)){
-            alert("Kindly Input Digits only!");
-            amountInput.value = "";
+makeTransfer.addEventListener("click", function(){
+    Swal.fire({
+        title: "Enter your Pin",
+        html: `<input type= "password" id="pin" class = "swal2-input" placeholder="Enter your Pin Here!">`,
+        confirmButtonText: "CONTINUE",
+        confirmButtonColor: '#055496',
+        focusConfirm: false,
+        preConfirm: () =>{
+            function getPin(){
+                const pindata = Swal.getPopup().querySelector('#pin').value;
+                return {user}
+            }
         }
-        if(!digitPattern.test(acctNumInput.value)){
-            alert("Kindly Input Digits only!");
-            acctNumInput.value = "";
-        }
-    }
-    numberValidator();
-    
-    //Making a POST Request to make a Transfer
-    let data = getTransfer();
-
-    fetch(transfer, {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type' : 'application/json',
-            'mode' : 'no-cors',
-            "Authorization": `bearer ${bearer}`
-        }
-    }).then((res) => {
-        return res.json();
     })
-    .then((res) => {
-        console.log(data);
-        console.log(res);
-        console.log(res.statusMessage);
-        if(res.status == true){
-            alert(res.statusMessage);
-            sendToDashboard();
-        }else{
-            alert(res.statusMessage);
-        }
-    });
+
+    // //Logic to check if the User attempts to write a character that is not a digit
+    // function numberValidator(){
+    //     let digitPattern = /\d/;
+    //     if(!digitPattern.test(amountInput.value)){
+    //         alert("Kindly Input Digits only!");
+    //         amountInput.value = "";
+    //     }
+    //     if(!digitPattern.test(acctNumInput.value)){
+    //         alert("Kindly Input Digits only!");
+    //         acctNumInput.value = "";
+    //     }
+    // }
+    // numberValidator();
+    
+    // //Making a POST Request to make a Transfer
+    // let data = getTransfer();
+
+    // fetch(transfer, {
+    //     method: "PUT",
+    //     body: JSON.stringify(data),
+    //     headers: {
+    //         'Content-Type' : 'application/json',
+    //         'mode' : 'no-cors',
+    //         "Authorization": `bearer ${bearer}`
+    //     }
+    // }).then((res) => {
+    //     return res.json();
+    // })
+    // .then((res) => {
+    //     console.log(data);
+    //     console.log(res);
+    //     console.log(res.statusMessage);
+    //     if(res.status == true){
+    //         alert(res.statusMessage);
+    //         sendToDashboard();
+    //     }else{
+    //         alert(res.statusMessage);
+    //     }
+    // });
 });

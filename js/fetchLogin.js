@@ -1,6 +1,6 @@
 import { sendToDashboard, sendToLogin, sendToSignUp, getUserLogin} from "./main.js";
 // import Swal from "../sweetalert2-sweetalert2-6bfd0b6/src/sweetalert2.js";
-var login = 'https://localhost:7007/api/User/login';
+var login = 'https://localhost:7007/api/Authentication/login';
 let buttonIsClicked = false;
 
 const loginBtn = document.getElementById("loginBtn");
@@ -14,7 +14,7 @@ loginBtn.addEventListener('click', (e) => {
     console.log(data);
 
     //Fetch API to login the Account User
-    fetch( login, {
+    fetch(login, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

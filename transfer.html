@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>VanaPay Wallet App</title>
         <link rel="shortcut icon" href="./img/favicon.png"sizes="16x16" type="image/png">
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
         <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
         <link rel="stylesheet" href="./css/main.css">
     </head>
@@ -64,7 +65,7 @@
                         <input type="text" id="amount" class="input" placeholder="Enter Amount Here" style="width: 500px; text-align: left; padding: 5px 10px 10px 40px;
                         margin: 0; transition: ease 0.2s;">
                         <div>
-                            <button class="transferButton" id="submit">CONTINUE</button>
+                            <button class="transferButton" id="makeTransfer">CONTINUE</button>
                         </div>
                     </span>
                     <span>
@@ -84,5 +85,6 @@
                 </div>
             </div>
     <script type="module" src="./js/transfer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>
