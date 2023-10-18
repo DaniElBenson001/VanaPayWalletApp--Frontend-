@@ -4,6 +4,8 @@ import {suggestedUsername1, suggestedUsername2, suggestedUsername3} from './gene
 import {generatedUsername1, generatedUsername3} from './generateUsername.js';
 
 const register = 'https://localhost:7007/api/User/register';
+const createPin = 'https://localhost:7007/api/Authentication/createPin'
+
 const signupBtn = document.getElementById("signupBtn");
 const lastname = document.getElementById('lastname');
 const username = document.getElementById('username');
@@ -55,4 +57,4 @@ signupBtn.addEventListener('click', (e) =>{
         }
     })
     
-})
+});
