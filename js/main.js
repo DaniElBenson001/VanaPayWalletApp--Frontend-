@@ -11,21 +11,14 @@ export function sendToLogin(){
     location.replace(`http://127.0.0.1:5500/login.html`);
 }
 
-//Event Listener to log out the User
-// if(logoutBtn){
-//     logoutBtn.addEventListener('click', (e) => {
-//         alert("Logging Out Now!!");
-//         localStorage.clear();
-//         window.location.href = "http://127.0.0.1:5500/transfer.html";
-//     })
-// }
-
+function logOut(){   
+    sendToLogin();
+    localStorage.clear();  
+}
 //load the sign up
 export function sendToSignUp(){
     location.replace(`${mainURL}/signup.html`)
 }
-
-
 
 //function to get user login credentials
 export function getUserLogin(){
