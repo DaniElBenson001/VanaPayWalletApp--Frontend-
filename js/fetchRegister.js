@@ -3,8 +3,10 @@ import {generateUsername1, generateUsername3} from './generateUsername.js'
 import {suggestedUsername1, suggestedUsername2, suggestedUsername3} from './generateUsername.js';
 import {generatedUsername1, generatedUsername3} from './generateUsername.js';
 
+const createPin = 'https://localhost:7007/api/Authentication/createPin';
 const register = 'https://localhost:7007/api/User/register';
-const createPin = 'https://localhost:7007/api/Authentication/createPin'
+const validateUser = 'https://localhost:7007/api/Authentication/validateUser';
+const bearer = localStorage.getItem("bearer");
 
 const signupBtn = document.getElementById("signupBtn");
 const lastname = document.getElementById('lastname');
@@ -30,17 +32,11 @@ lastname.addEventListener('focusout', function(){
 })
 
 generateUsername1();
-// generateUsername2();
+
 generateUsername3();
 
 signupBtn.addEventListener('click', (e) =>{
-    buttonIsClicked = true;
-    // signupBtn.style.cursor = "not-allowed";
-    // signupBtn.disabled = true;
-
-    const data = getUserSignup();
-    // console.log(data);
-
+    let data = getUserSignup();
     fetch(register, {
         method: "POST",
         body: JSON.stringify(data),
@@ -52,9 +48,16 @@ signupBtn.addEventListener('click', (e) =>{
     .then((res) => {
         console.log(res);
         if(res.statusMessage = "User Successfully Created"){
-            alert(res.statusMessage);
-            sendToLogin();
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text:  `${res.statusMessage}`
+            }).then((resp) => {
+                if(resp.isConfirmed){
+                    sendToLogin();
+                }
+            })
         }
-    })
-    
+    });
 });
+

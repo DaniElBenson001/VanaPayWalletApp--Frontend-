@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>VanaPay Wallet App</title>
+        <title>VanaPay Wallet App - Make a Transfer</title>
         <link rel="shortcut icon" href="./img/favicon.png"sizes="16x16" type="image/png">
         <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
         <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
@@ -11,28 +11,27 @@
     </head>
     <body>
         <div class="container">
-    
             <div class="sideNav">
-                <a href="dashboard.html">
+                <a href="./dashboard.html">
                     <div class="tooltip">
                         <img src="./img/Icons/icons8-top-menu-48.png" alt="" srcset="" class="sidenavIcon" id="home">
                         <span class="tooltiptext">Dashboard</span>
                     </div>
                 </a>
                 
-                <a href="#TransactionHistory">
+                <a href="./transactions.html">
                     <div class="tooltip">
                         <img src="./img/Icons/icons8-ledger-48.png" alt="" srcset="" class="sidenavIcon" id="ledgers">
                         <span class="tooltiptext">Transactions</span>
                     </div>
                 </a>
-                <a href="">
+                <a href="./deposit.html">
                     <div class="tooltip">
                         <img src="./img/Icons/icons8-deposit-48 (1).png" alt="" srcset="" class="sidenavIcon" id="deposit">
                         <span class="tooltiptext">Deposit Money</span>
                     </div>
                 </a>
-                <a href="">
+                <a href="./transfer.html">
                     <div class="tooltip">
                         <img src="./img/Icons/icons8-send-money-48.png" alt="" srcset="" class="sidenavIcon" id="transfer">
                         <span class="tooltiptext">Transfer Money</span>
@@ -44,13 +43,14 @@
                         <span class="tooltiptext">Settings</span>
                     </div>
                 </a>
-                <a href="#">
+                <a href="./login.html" onclick="logOut()">
                     <div class="tooltip">
                         <img src="./img/Icons/icons8-log-out-48.png" alt="" srcset="" class="sidenavIcon logout">
                         <span class="tooltiptext"> <b style="font-family: RocGrotesk-Bold; color: black;">LogOut</b></span>
                     </div>
                 </a>
             </div>
+        </div>
 
             <div class="main">
                 <h1 class="title">Transfer Money</h1>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VanaPay Wallet App - Make a Deposit</title>
+    <link rel="shortcut icon" href="./img/favicon.png"sizes="16x16" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sideNav">
+            <a href="./dashboard.html">
+                <div class="tooltip">
+                    <img src="./img/Icons/icons8-top-menu-48.png" alt="" srcset="" class="sidenavIcon" id="home">
+                    <span class="tooltiptext">Dashboard</span>
+                </div>
+            </a>
+            
+            <a href="./transactions.html">
+                <div class="tooltip">
+                    <img src="./img/Icons/icons8-ledger-48.png" alt="" srcset="" class="sidenavIcon" id="ledgers">
+                    <span class="tooltiptext">Transactions</span>
+                </div>
+            </a>
+            <a href="./deposit.html">
+                <div class="tooltip">
+                    <img src="./img/Icons/icons8-deposit-48 (1).png" alt="" srcset="" class="sidenavIcon" id="deposit">
+                    <span class="tooltiptext">Deposit Money</span>
+                </div>
+            </a>
+            <a href="./transfer.html">
+                <div class="tooltip">
+                    <img src="./img/Icons/icons8-send-money-48.png" alt="" srcset="" class="sidenavIcon" id="transfer">
+                    <span class="tooltiptext">Transfer Money</span>
+                </div>
+            </a>
+            <a href="">
+                <div class="tooltip">
+                    <img src="./img/Icons/icons8-settings-48.png" alt="" srcset="" class="sidenavIcon">
+                    <span class="tooltiptext">Settings</span>
+                </div>
+            </a>
+            <a href="./login.html" onclick="logOut()">
+                <div class="tooltip">
+                    <img src="./img/Icons/icons8-log-out-48.png" alt="" srcset="" class="sidenavIcon logout">
+                    <span class="tooltiptext"> <b style="font-family: RocGrotesk-Bold; color: black;">LogOut</b></span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="main">
+        <h1 class="title">Deposit Money</h1>
+        <img src="./img/logoName.png" alt="" class="logo"> 
+
+        <div style="margin-top: 20px;">
+            <span class="transfer">
+                <h1 style="font-size: 30px; font-family: RocGrotesk-Bold;">Enter Account Number</h1>
+                <input type="text" id="accNumInput" class="input" placeholder="Enter Account Number Here" style="width: 500px; text-align: left; padding: 5px 10px 10px 40px;
+                margin: 0; transition: ease 0.2s;">
+                <h1 style="font-size: 30px; font-family: RocGrotesk-Bold;">Enter Amount</h1>
+                <input type="text" id="amount" class="input" placeholder="Enter Amount Here" style="width: 500px; text-align: left; padding: 5px 10px 10px 40px;
+                margin: 0; transition: ease 0.2s;">
+                <div>
+                    <button class="transferButton" id="makeTransfer">CONTINUE</button>
+                </div>
+            </span>
+        </div>
+    </div>
+</body>
+</html>

@@ -74,7 +74,7 @@ function getTransactionHistory(){
     }).then((data) => {
         return data.json();
     }).then((res) => {
-        console.log(res[0].senderAcctNo);
+        // console.log(res[0].senderAcctNo);
         let transactionsData = "";
         res.map((values) => {
             var transacType = values.transacType;

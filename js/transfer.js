@@ -3,6 +3,8 @@ import { getTransfer, sendToDashboard } from "./main.js";
 let dashboardInfo = `https://localhost:7007/api/Dashboard/getDashboardInfo`;
 let transfer = `https://localhost:7007/api/Transaction/transfer`;
 let verifyPin = `https://localhost:7007/api/Authentication/verifyPin`;
+let validateUser = `https://localhost:7007/api/Authentication/validateUser`;
+let createPin = `https://localhost:7007//api/Authentication/createPin`;
 
 let dashboardAccNum = document.getElementById("acctNum");
 let dashboardBalance = document.getElementById("balance");
@@ -11,6 +13,9 @@ const bearer = localStorage.getItem("bearer");
 const acctNumInput = document.getElementById("accNumInput")
 const amountInput = document.getElementById("amount");
 const makeTransfer = document.getElementById("makeTransfer");
+
+const pindata = Swal.getPopup().querySelector('#pin').value;
+const pindata2 = Swal.getPopup().querySelector('#pin2').value;
 
 //Data for the card to supply the user's Account Number 
 fetch(dashboardInfo, {
@@ -41,9 +46,13 @@ fetch(dashboardInfo, {
 
 //Submit Event Listener to continue Transaction
 makeTransfer.addEventListener("click", function(){
+
     //Logic to check if the User attempts to write a character that is not a digit
     let digitPattern = /\d/;
+
+    //Function to call the Logic if checks the values inputted are Digits or not
     function numberValidator(){
+        //Checks if both of them are found wanting
         if(!digitPattern.test(amountInput.value) && !digitPattern.test(acctNumInput.value)){
             Swal.fire({
                 title: `Invalid Input`,
@@ -56,6 +65,7 @@ makeTransfer.addEventListener("click", function(){
             acctNumInput.value = "";
         }
 
+        //Checks if either of them is found wanting
         if(!digitPattern.test(amountInput.value) || !digitPattern.test(acctNumInput.value)){
             Swal.fire({
                 title: `Invalid Input`,
@@ -70,108 +80,81 @@ makeTransfer.addEventListener("click", function(){
     }
     numberValidator();
 
-
+    //Runs to check if the Values are correct and moves to Pin Validation and then Transfer Payment
     if(digitPattern.test(amountInput.value) == true && digitPattern.test(acctNumInput.value) == true){
-        return Swal.fire({
-            title: "Enter your Pin",
-            html: `<input type= "password" id="pin" class = "swal2-input" placeholder="Enter your Pin Here!">`,
-            confirmButtonText: "CONTINUE",
-            confirmButtonColor: '#055496',
-            focusConfirm: false,
-            preConfirm: () =>{
-                function getPin(){
-                    const pindata = Swal.getPopup().querySelector('#pin').value;
-                    return {pin: pindata}
-                };
-                var pinData = getPin();
-    
-                fetch(verifyPin, {
-                    method: "POST",
-                    body: JSON.stringify(pinData),
-                    headers: {
-                        "content-type": "application/json",
-                        "Authorization": `bearer ${bearer}`
-                    }
-                })
-                .then((res) => res.json())
-                .then((response) => {
-                    console.log(response);
-                    if(response.status != true){
+        
+        //First attempts to validate if the User has a Pin saved in the Database
+        //GET Request to obtain Pin Validity Response
+        fetch(validateUser, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+                "Authorization": `bearer ${bearer}`
+            }
+
+        }).then((res) =>{ return res.json()})
+        //a then method to capture the response of the API request we made, retrieving the Status Mesage for User Pin Validity
+        .then((response) => {
+            console.log(response);
+            if(response.status == false){
+                Swal.fire({
+                    title: `Oops`,
+                    text: `${response.statusMessage}`,
+                    icon: 'info',
+                    confirmButtonText: "Create a New PIN",
+                    showCancelButton: true,
+                    confirmButtonColor: '#055496',
+                }).then((resp) => {
+                    //When the User realises that He does not have a Solid PIN, He decides to Subscribe to One....
+                    if(resp.isConfirmed){
                         Swal.fire({
-                            title: `Incorrect Pin`,
-                            text: `${response.statusMessage}`,
-                            icon: 'error',
-                            confirmButtonText: "OK",
+                            title: `Create your Pin Here`,
+                            icon: 'info',
+                            html:`<p> Kindly input your Customized Pin for Future Transaction Validations. </p>
+                                  <input type= "password" id="pin" class = "swal2-input" placeholder="Enter your Pin Here!">
+                                    <br>
+                                  <input type= "password" id="pin2" class = "swal2-input" placeholder="Confirm your Pin Here!">`,
+                            confirmButtonText: 'CREATE PIN',
                             confirmButtonColor: '#055496',
-                        });
-                    }if(response.status == true){
-                        Swal.fire({
-                            title: `Are you Sure?`,
-                            text: `You will not be able to Revert this`,
-                            icon: 'warning',
-                            confirmButtonText: "Yes, Continue Transfer",
-                            confirmButtonColor: '#055496'
-                        })
-                        .then((result) => {
+                            //Checks whether the Pins provided are One and the Same
+                            preConfirm: () => {
+
+                                function checkPin(){
+                                    if(pindata != pindata2){
+                                        return Swal.fire({
+                                            icon: 'error',
+                                            title: 'Your Pin or Confirm Pin is not Correct!'
+                                        })
+                                    }
+                                } checkPin();
+                                
+                            }    
+                        }).then((result) => {
+                            //Checks if the User has clicked on create and then performs a FETCH request to post the PIN provided
+                            function getPin(){
+                                return {
+                                    userPin: pindata,
+                                    confirmUserPin: pindata2
+                                }
+                            }
+                            let getPinData = getPin();
                             if(result.isConfirmed){
-                                //Making a POST Request to make a Transfer
-                                let data = getTransfer();
-    
-                                fetch(transfer, {
-                                    method: "PUT",
-                                    body: JSON.stringify(data),
+                                fetch(createPin, {
+                                    method: "POST",
+                                    body: JSON.stringify(getPinData),
                                     headers: {
-                                        'Content-Type' : 'application/json',
-                                        'mode' : 'no-cors',
+                                        "content-type": "application/json",
                                         "Authorization": `bearer ${bearer}`
                                     }
-                                }).then((res) => {
-                                    return res.json();
-                                })
-                                .then((res) => {
-                                    console.log(data);
-                                    console.log(res);
-                                    console.log(res.statusMessage);
-                                    if(res.status == true){
-                                        Swal.fire({
-                                            title: `Successful`,
-                                            text: `${res.statusMessage}`,
-                                            icon: 'success',
-                                            confirmButtonText: "Let's Go",
-                                            confirmButtonColor: '#055496',
-                                            isConfirmed: true
-                                        }).then((result) => {
-                                            if(result.isConfirmed){
-                                                sendToDashboard();
-                                            }
-                                        });
-                                    } if(res.status == false){
-                                        Swal.fire({
-                                            title: `Error`,
-                                            text: `${res.statusMessage}`,
-                                            icon: 'error',
-                                            confirmButtonText: "Let's Go",
-                                            confirmButtonColor: '#055496',
-                                            isConfirmed: true
-                                        }).then((result) => {
-                                            if(result.isConfirmed){
-                                                location.replace('http://127.0.0.1:5500/transfer.html')
-                                            }
-                                        });
-                                    }
-                                })
+                                }).then((res) => {return res.json()})
                                 .then((response) => {
                                     console.log(response);
-                                });
+                                })
                             }
                         });
                     }
-                })
+                });
             }
         })
     }
-    
-    
-
-    
 });
