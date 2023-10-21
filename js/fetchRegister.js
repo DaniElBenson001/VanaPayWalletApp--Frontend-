@@ -60,4 +60,3 @@ signupBtn.addEventListener('click', (e) =>{
         }
     });
 });
-

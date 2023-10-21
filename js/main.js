@@ -49,5 +49,12 @@ export function getTransfer(){
     }
 }
 
+export function getPin(){
+    return {
+        userPin: document.getElementById("pin").value,
+        confirmUserPin: document.getElementById("pin2").value
+    }
+}
+
 
 //Code for Pagination of Transactions History
