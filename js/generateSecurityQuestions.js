@@ -24,12 +24,15 @@ let SecurityQuestions = [
 
 export function randomSecurityQuestion(){
     var min = 0;
-    var max = 19;
+    var max = SecurityQuestions.length;
     
-    var randomString = "";
-    var randomNumber = Math.floor(Math.random() * (max + min));
-    randomString += randomNumber;
-    return randomString;
+    var randQuestion = "";
+    var n = Math.floor(Math.random() * (max + min));
+    randQuestion += SecurityQuestions[n];
+    return randQuestion;
 }
 
-console.log(randomSecurityQuestion());
+// var result = randomSecurityQuestion();
+
+// console.log(result);
+// console.log(randomSecurityQuestion())

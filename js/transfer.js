@@ -6,6 +6,7 @@ let transfer = `https://localhost:7007/api/Transaction/transfer`;
 let verifyPin = `https://localhost:7007/api/Authentication/verifyPin`;
 let validateUser = `https://localhost:7007/api/Authentication/validateUser`;
 let createPin = `https://localhost:7007/api/Authentication/createPin`;
+let addSecurityQuestion = 'https://localhost:7007/api/Authentication/addSecurityQuestion';
 
 let dashboardAccNum = document.getElementById("acctNum");
 let dashboardBalance = document.getElementById("balance");
@@ -140,11 +141,11 @@ makeTransfer.addEventListener("click", function(){
                             }    
                         })
                         //Runs when a Conditional Response of the User clicking the Sweet Alert Button to Continue
-                        .then((result) => {
+                        .then((SwalResponse) => {
                             //Checks if the User has clicked on create and then performs a FETCH request to post the PIN provided
                             let getPinData = getPin(); //getPin() Function is an exported module Function found in the ./js/main.js
                             
-                            if(result.isConfirmed){
+                            if(SwalResponse.isConfirmed){
                                 fetch(createPin, {
                                     method: "POST",
                                     body: JSON.stringify(getPinData),
@@ -166,7 +167,46 @@ makeTransfer.addEventListener("click", function(){
                                     //Runs when a Conditional Response of the User clicking the Sweet Alert Button to Continue
                                     //Goes ahead to make a Transfer using the Transfer Function
                                     if(result.isConfirmed){
-                                        makeTransferFunction()
+                                        Swal.fire({
+                                            // title: 'SECURITY QUESTION',
+                                            html:`
+                                                <div style = "text-align: center">
+                                                    <h2 style= "font-weight: 800"> SECURITY QUESTION </h2>
+                                                    <p id ="question" style = "font-size: 16px; font-weight: 600; margin-top: -10px"> ${sQuestion} </p>
+                                                    <input style= "margin: 0; font-size: 14px; width: 70%" type= "text" id="sqAnswer" class = "swal2-input" placeholder="Enter your Answer Here!">
+                                                </div>
+                                                `,
+                                            confirmButtonText: "Let's Go",
+                                            confirmButtonColor: '#055496'
+                                        }).then((sQuestionResp) => {
+                                            if(sQuestionResp.isConfirmed){
+                                                let sQuestionData = getSecurityQuestion();
+                                                fetch(addSecurityQuestion, {
+                                                    method: "POST",
+                                                    body: JSON.stringify(sQuestionData),
+                                                    headers: {
+                                                        'Content-Type' : 'application/json',
+                                                        "Authorization": `bearer ${bearer}`
+                                                    }
+                                                }).then((response) => { return response.json()})
+                                                .then((res) => {
+                                                    console.log(res)
+                                                })
+                                            }
+                                        }).then((sqFetchResp) => {
+                                            if(sqFetchResp.isConfirmed){
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Great Job',
+                                                    text:  `Thank you for filling in...`,
+                                                    confirmButtonText: "Let's Go"
+                                                }).then((SwalResult) => {
+                                                    if(SwalResult.isConfirmed){
+                                                        makeTransferFunction();
+                                                    }
+                                                })
+                                            }
+                                        })
                                     }
                                 })
                             }
@@ -174,6 +214,7 @@ makeTransfer.addEventListener("click", function(){
                     }
                 });
             }
+
             //Condition if the User has a PIN registered afore
             if(response.status == true){
                 makeTransferFunction();

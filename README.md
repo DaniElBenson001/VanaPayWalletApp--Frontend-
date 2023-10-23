@@ -7,3 +7,12 @@
 🔧 Built using HTML, CSS and Vanilla JavaScript
 
 🙏 Special Thanks to my Internship Supervisor and Senior Colleagues for the Tutorials and Experience in this Project
+
+
+# Here are few Solutions I uncovered to solve menial problems in my Code
+
+✨ IF YOU WANT TO RETURN THE EXACT VALUE ACROSS FROM A FUNCTION RANDOMIZER
+
+When you have Function that returns Randomized Data, sending the function itself twice or more across the project will return different randomized values at the places it calls -- To solve this, place the function in a variable, and send the Variable, that way you have the same Return Response of the Function across your Project.
+
+✨ UNDERSTANDING MODULE JAVASCRIPT WRITING SAVES TIME AND ENCOURAGES REFERENCES AND DEFINITIONS

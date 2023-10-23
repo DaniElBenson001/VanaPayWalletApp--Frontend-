@@ -1,3 +1,5 @@
+import { sQuestion } from "./fetchRegister.js";
+
 export var mainURL = "http://127.0.0.1:5500";
 let logoutBtn = document.getElementById("logout");
 
@@ -56,5 +58,11 @@ export function getPin(){
     }
 }
 
+export function getSecurityQuestion(){
+    return{
+        question: sQuestion,
+        answer: document.getElementById("sqAnswer").value
+    }
+}
 
 //Code for Pagination of Transactions History
