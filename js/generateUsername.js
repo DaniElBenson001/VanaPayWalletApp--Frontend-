@@ -1,6 +1,3 @@
-export {suggestedUsername1, suggestedUsername2, suggestedUsername3}
-export {generatedUsername1, generatedUsername2, generatedUsername3}
-
 //To Store Id tags in requisite variables
 let suggestedUsername1 = document.getElementById('suggestedUsername1');
 let suggestedUsername2 = document.getElementById('suggestedUsername2');
@@ -68,3 +65,7 @@ export function generateUsername3(){
     }
     suggestedUsername3.innerHTML = generatedUsername3;
 }
+
+
+export {suggestedUsername1, suggestedUsername2, suggestedUsername3}
+export {generatedUsername1, generatedUsername2, generatedUsername3}

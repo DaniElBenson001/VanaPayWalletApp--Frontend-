@@ -2,7 +2,6 @@ import {getUserSignup, sendToLogin} from './main.js'
 import {generateUsername1, generateUsername3} from './generateUsername.js'
 import {suggestedUsername1, suggestedUsername2, suggestedUsername3} from './generateUsername.js';
 import {generatedUsername1, generatedUsername3} from './generateUsername.js';
-import {randomSecurityQuestion} from './generateSecurityQuestions.js';
 
 const register = 'https://localhost:7007/api/User/register';
 
@@ -13,16 +12,10 @@ const lastname = document.getElementById('lastname');
 const username = document.getElementById('username');
 let buttonIsClicked = false;
 
-export let sQuestion = randomSecurityQuestion();
-
+console.log(suggestedUsername1);
 suggestedUsername1.addEventListener('click', function(){
     username.value = generatedUsername1;
 });
-
-suggestedUsername2.addEventListener('click', function(){
-    username.value = generatedUsername2;
-});
-
 suggestedUsername3.addEventListener('click', function(){
     username.value = generatedUsername3;
 });

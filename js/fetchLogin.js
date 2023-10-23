@@ -1,5 +1,5 @@
 import { sendToDashboard, sendToLogin, sendToSignUp, getUserLogin} from "./main.js";
-// import Swal from "../sweetalert2-sweetalert2-6bfd0b6/src/sweetalert2.js";
+
 var login = 'https://localhost:7007/api/Authentication/login';
 let buttonIsClicked = false;
 
