@@ -750,3 +750,11 @@ tr:nth-child(even) {
     background-color: #f1f1f1;
     font-family: Inter-Bold;
 }
+
+#receipientAccNo{
+    color: #378ace;
+    font-family: RocGrotesk-Bold;
+    font-size: 16px;
+    padding-top: 10px;
+    padding-left: 30px;
+}

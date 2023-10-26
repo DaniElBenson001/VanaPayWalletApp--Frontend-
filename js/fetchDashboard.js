@@ -1,9 +1,7 @@
-import { mainURL } from "./main.js";
-let baseURL = "https://localhost:7007";
+//Importing Necessary Variables for Fetch Requests to use
+import { bearer, dashboardInfo, txnHistoryurl, pinAvailable } from "./endpoints.js";
 
-
-//HUMANIZED TIME SECTION
-//-----------------------------------------------------------------------------------
+//HUMANIZED TIME FOR SEAMLESS USER EXPERIENCE
 //Time Variables
 let timeNow = new Date().getHours();
 let greeting = document.getElementById("greeting");
@@ -18,53 +16,81 @@ if(timeNow >= 12){
 if(timeNow >= 17){
     greeting.innerHTML = "Good Evening, ";
 }
+//All Functions, Variables and Modules will be duly declared and exported
 
-//DASHBOARD SECTION 
-//----------------------------------------------------------------------------------
 
-// Dashboard Variables
-let dashboardInfo = `${baseURL}/api/Dashboard/getDashboardInfo`;
+//VARIABLES FOR DASHBOARD DOM MANIPULATION
 let dashboardUsername = document.getElementById("dashboardUsername");
 let dashboardFirstName = document.getElementById("userFirstName");
 let dashboardAccNum = document.getElementById("acctNum");
 let dashboardBal = document.getElementById("acctBalFigure");
 
+
+
+//FETCH REQUESTS FOR MULTIPLE DASHBOARD API ENDPOINTS
+//Fetching if the User has a PIN avaialble
+function pinAvailableFunction(){
+    fetch(pinAvailable,{
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+            "Authorization": `bearer ${bearer}`
+        }
+    }).then((validationData) => { return validationData.json() }) //THEN Method for Validation Data
+    .then((validationResp) => {
+        console.log(validationResp)
+        if(validationResp.status === false){
+            iziToast.show({
+                color: 'blue',
+                position: 'topRight',
+                title: 'PIN Creation',
+                message: `Kindly Have your PIN created for Future Transactions!`,
+                timeout: 7000,
+                drag: true,
+                buttons: [
+                    ['<button style = "font-weight: 600">Create</button>', function (instance, toast) {
+                        
+                        alert("Success")
+                    }, true], // true to focus
+                ]
+            })
+        }
+    })
+}
+pinAvailableFunction();
+
 //Fetching the User Info into His Dashboard
-export function getDashboardInfo(){
-    const bearer = localStorage.getItem("bearer");
+function getDashboardInfo(){
     fetch(dashboardInfo, {
         method: "GET",
         headers: {
             "content-type": "application/json",
             "Authorization": `bearer ${bearer}`
         }
-    }).then((data) => {
-        console.log(data);
-        return data.json();
-    }).then((res) => {
+    }).then((dashboardInfoData) => {
+        console.log(dashboardInfoData);
+        return dashboardInfoData.json();
+    }).then((dashboardInfoResp) => {
+        console.log(dashboardInfoResp)
         //For the Username
-        dashboardUsername.innerHTML = `${res.userName}`;
+        dashboardUsername.innerHTML = `${dashboardInfoResp.userName}`;
         
         //For the First Name alone
-        let fullName = `${res.fullName}`;
+        let fullName = `${dashboardInfoResp.fullName}`;
         const firstName = fullName.split(' ')[0];
         dashboardFirstName.innerHTML = firstName;
         
         //For the Account Number
-        dashboardAccNum.innerHTML = `${res.accountNumber}`;
-
+        dashboardAccNum.innerHTML = `${dashboardInfoResp.accountNumber}`;
+    
         //For the Account Balance
-        dashboardBal.innerHTML = `${res.balance.toLocaleString("en-US")}`;
+        dashboardBal.innerHTML = `${dashboardInfoResp.balance.toLocaleString("en-US")}`;
     })
 }
 getDashboardInfo();
 
-//TRANSACTION HISTORY SECTION
-//----------------------------------------------------------------------------------
-const txnHistoryurl = `${baseURL}/api/Transaction/getTransactionHistory`;
-
+//Fetching all the Transactions ever made in one sheet
 function getTransactionHistory(){
-    const bearer = localStorage.getItem("bearer");
     fetch(txnHistoryurl, {
         method: "GET",
         headers: {
@@ -99,5 +125,4 @@ function getTransactionHistory(){
         document.getElementById("transactionHistory").innerHTML = transactionsData;
     })
 }
-
 getTransactionHistory();

@@ -1,94 +1,110 @@
-import { getTransfer, sendToDashboard, getPin, pinInput } from "./main.js";
+import { randomSecurityQuestion } from "./generateSecurityQuestions.js";
+import { bearer ,transfer, searchByAccNo, pinAvailable, createPin, securityQuestion, dashboardInfo, verifyPin  } from "./endpoints.js";
+import { getTransfer, sendToDashboard, getPin, pinInput, searchAccInput, getSecurityQuestions } from "./main.js";
 
 //Variables to store all Links and API Endpoints for use
-let dashboardInfo = `https://localhost:7007/api/Dashboard/getDashboardInfo`;
-let transfer = `https://localhost:7007/api/Transaction/transfer`;
-let verifyPin = `https://localhost:7007/api/Authentication/verifyPin`;
-let validateUser = `https://localhost:7007/api/Authentication/validateUser`;
-let createPin = `https://localhost:7007/api/Authentication/createPin`;
-let addSecurityQuestion = 'https://localhost:7007/api/Authentication/addSecurityQuestion';
 
-let dashboardAccNum = document.getElementById("acctNum");
-let dashboardBalance = document.getElementById("balance");
-const bearer = localStorage.getItem("bearer");
+let accNum = document.getElementById("acctNum");
+let accBalance = document.getElementById("balance");
+// const bearer = localStorage.getItem("bearer");
 
-const acctNumInput = document.getElementById("accNumInput")
+const acctNumInput = document.getElementById("accNumInput");
 const amountInput = document.getElementById("amount");
 const makeTransfer = document.getElementById("makeTransfer");
+const receipientAccNo = document.getElementById("receipientAccNo");
 
+//Function to get Account Details of the User in Question
+function getAccountInfo(){
+    //Fetching the User Account Details for Display
+    fetch(dashboardInfo, {
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+            "Authorization": `bearer ${bearer}`
+        },
+    }).then((accountInfoData) => {
+        console.log(accountInfoData); 
+        return accountInfoData.json();
+    })
+    .then((accountInfoResp) => {
+        console.log(accountInfoResp)
+        accNum.innerHTML = `${accountInfoResp.accountNumber}`;
+        accBalance.innerHTML = `NGN ${accountInfoResp.balance.toLocaleString("en-US")}`
+    })
+}
+getAccountInfo();
 
-//Data for the card to supply the user's Account Number 
-fetch(dashboardInfo, {
-    //Header Description for the Fetch Method
-    headers: {
-        "content-type": "application/json",
-        "Authorization": `bearer ${bearer}`
-    }
+//Event Listener is used to pop out the provided receiver's account Name for easy confirmation
+acctNumInput.addEventListener('focusout', function(){
+    //Fetch Request to  Automatically Search for the Account Number
+    var searchData = searchAccInput();
+    fetch(searchByAccNo, {
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify(searchData)
+    }).then((searchAccData) => { return searchAccData.json() }) //THEN Method for Search Data
+    .then((searchAccResp) =>{
+        console.log(searchAccResp)
+        if(searchAccResp.status === true){
+            receipientAccNo.innerHTML = `${searchAccResp.data.firstName} ${searchAccResp.data.lastName}`
+        }
+        if(searchAccResp.status === false){
+            console.log(searchAccResp);
+            //Alert to send in an Invalid search response
+
+            iziToast.show({
+                color: 'red',
+                position: 'topRight',
+                title: 'Error',
+                message: `${searchAccResp.statusMessage}`
+            })
+        }
+    })
+
 })
-//Returns the data in JSON format
-.then((data) => {return data.json();})
-//Where the main logic happens, and we manipulate the data response the way we want
-.then((res) => {
-    //For the Account Number Info in the transfers
-    dashboardAccNum.innerHTML = `${res.accountNumber}`;
-    console.log(res.accountNumber);
-});
 
-//Data for Card to supply the User's Account Balance
-fetch(dashboardInfo, {
-    //Header Description for the Fetch Method
-    headers: {
-        "content-type": "application/json",
-        "Authorization": `bearer ${bearer}`
-    }
-})
-//Returns the data in JSON format
-.then((data) => { return data.json();})
-//Where the main logic happens, and we manipulate the data response the way we want
-.then((res) => {
-    //For the Account Number Info in the transfers
-    dashboardBalance.innerHTML = `NGN ${res.balance.toLocaleString("en-US")}`;
-});
-
-//Submit Event Listener to continue Transaction
+//SUBMIT EVENT LISTENER TO CONTINUE TRANSACTION
 makeTransfer.addEventListener("click", function(){
-    //Logic to check if the User attempts to write a character that is not a digit
-    let digitPattern = /\d/;
-    //Function to call the Logic if checks the values inputted are Digits or not
+    
+    //LOGIC TO CHECK IF THE USER ATTEMPTS TO WRITE A CHARACTER THAT IS NOT A DIGIT
+    let digitPattern = /^\d+$/;
+
+    //FUNCTION TO CALL THE LOGIC IF CHECKS THE VALUES INPUTTED ARE DIGITS OR NOT
     function numberValidator(){
+
         //Checks if both of them are found wanting
         if(!digitPattern.test(amountInput.value) && !digitPattern.test(acctNumInput.value)){
-            Swal.fire({
-                title: `Invalid Input`,
-                text: `Kindly Input Digits only`,
-                icon: 'error',
-                confirmButtonText: "OK",
-                confirmButtonColor: '#055496',
-            });//Alert - Invalid Input
-            amountInput.value = "";
-            acctNumInput.value = "";
+            //Alert - Invalid Input
+            iziToast.show({
+                color: 'red',
+                position: 'topRight',
+                title: 'Error',
+                message: `Kindly Input Digits only`
+            })
+            amountInput.value = ""; acctNumInput.value = "";
         }
 
         //Checks if either of them is found wanting
         if(!digitPattern.test(amountInput.value) || !digitPattern.test(acctNumInput.value)){
-            Swal.fire({
-                title: `Invalid Input`,
-                text: `Kindly Input Digits only`,
-                icon: 'error',
-                confirmButtonText: "OK",
-                confirmButtonColor: '#055496'
-            }); //Alert - Invalid Input
-            amountInput.value = "";
-            acctNumInput.value = "";
+            //Alert - Invalid Input
+            iziToast.show({
+                color: 'red',
+                position: 'topRight',
+                title: 'Error',
+                message: `Kindly Input Digits only`
+            }) 
+            amountInput.value = ""; acctNumInput.value = "";
         }
     }
     numberValidator();
 
 
-    //Condition if the User inputs Digits into the Fields
+    //CONDITION IF THE USER INPUTS THE APPROPRIATE VALUES IN THE FIELDS
     if(digitPattern.test(amountInput.value) || digitPattern.test(acctNumInput.value)){
-        //Fetch Request to validate if the User has a Pin or not
-        fetch(validateUser, {
+        //FETCH REQUEST TO CHECK IF THE USER HAS A PIN AVAILABLE IN HIS PROFILE
+        fetch(pinAvailable, {
             method: "GET",
             headers: {
                 "content-type": "application/json",
@@ -133,10 +149,39 @@ function verifyUserPIN(){
                     "content-type": "application/json",
                     "Authorization": `bearer ${bearer}`
                 }
-            }).then((verificationData) => { return verificationData.json()}) //THEN method for Verification Data
+            }).then((verificationData) => { 
+                if(verificationData.status !== 200){
+                    iziToast.show({
+                    color: 'red',
+                    position: 'topRight',
+                    title: 'Error',
+                    message: `${verificationData.statusText}`
+                    })
+                }
+                return verificationData.json()}) //THEN method for Verification Data
             .then((verificationResp) => {
                 console.log(verificationResp);
-                makeTransaction()
+
+                if(verificationResp.status === true){
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Are you Sure?',
+                        text: 'You will not be able to Revert this...',
+                        showCancelButton: true
+                    }).then((verificationAlertResp) => {
+                        if(verificationAlertResp.isConfirmed){
+                            makeTransaction();
+                        }
+                    })
+                }
+
+                if(verificationResp.status === false){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Wrong PIN',
+                        text: `${verificationResp.statusMessage}`
+                    })
+                }
             })
         }
     })
@@ -146,7 +191,7 @@ function verifyUserPIN(){
 
 //Function to Create a New PIN
 function createNewPIN(){
-        Swal.fire({
+    Swal.fire({
         title: `Create your Pin Here`,
         icon: 'info',
         html:`<p> Kindly input your Customized Pin for Current and Future Transaction Validations. </p>
@@ -158,10 +203,10 @@ function createNewPIN(){
         //Checks whether the Pins provided are One and the Same
         //Runs a Pre-confirm Function, that is before clicking the continue/confirm button, it checks the code inside the property and runs it
         preConfirm: () => {                           
-            const pindata = Swal.getPopup().querySelector('#pin').value;   //Gets the Value of the Proposed User Pin
-            const pindata2 = Swal.getPopup().querySelector('#pin2').value; //Gets the Value of the Proposdd User Pin once more, to the end that Accurate Comparism be made
             //Function to Compare the Pins inputted
             function checkPin(){
+                const pindata = Swal.getPopup().querySelector('#pin').value;   //Gets the Value of the Proposed User Pin
+                const pindata2 = Swal.getPopup().querySelector('#pin2').value; //Gets the Value of the Proposdd User Pin once more, to the end that Accurate Comparism be made
                 if(pindata != pindata2){
                     return Swal.fire({
                         icon: 'error',
@@ -170,12 +215,19 @@ function createNewPIN(){
                     })
                 }
             } 
-            return checkPin();
+            checkPin();
+            if(checkPin()){
+                iziToast.show({
+                    color: 'red',
+                    position: 'topRight',
+                    title: 'Error',
+                    message: `Kindly Ensure that your PIN are equal!`
+                })
+            }
         }
     }).then((createPinAlertResp) => {
         if(createPinAlertResp.isConfirmed){
             let pinData = getPin();
-            // console.log(pinData);
             //Fetch POST Request to register the User's customized PIN
             fetch(createPin, {
                 method: "POST",
@@ -184,18 +236,88 @@ function createNewPIN(){
                     "content-type": "application/json",
                     "Authorization": `bearer ${bearer}`
                 }
-            }).then((createPinData) => { return createPinData.json() })
+            }).then((createPinData) => {
+                if(createPinData.status !== 200)
+                iziToast.show({
+                    color: 'red',
+                    position: 'topRight',
+                    title: 'Error',
+                    message: `Kindly Ensure that your PIN are equal!`
+                })
+                return createPinData.json() }) //THEN Method for Creation Data
             .then((createPinResp) => {
                 console.log(createPinResp);
-                verifyUserPIN();
             })
+            console.log(getPin());
+            addSecurityQuestions();
         }
     })  
 }
 
+//Function to check the Equality of PIN upon Creation
 
 
-//Function to make a Transaction
+//Function for Security Questions for Future Transactions
+function addSecurityQuestions(){
+    let sQuestion = randomSecurityQuestion();
+    console.log(sQuestion);
+    Swal.fire({
+        icon: 'info',
+        html:`
+        <div style = "text-align: center">
+            <h2> SECURITY QUESTION </h2>
+            <p id ="question" style = "font-size: 16px; font-weight: 600; margin-top: -10px"> ${sQuestion} </p>
+            <input style= "margin: 0; font-size: 14px; width: 70%" type= "text" id="answer" class = "swal2-input" placeholder="Enter your Answer Here!">
+        </div>
+        `,
+        confirmButtonText: "Let's Go",
+        confirmButtonColor: '#055496'
+    }).then((getSecurityQuestionAlertResp) => {
+        if(getSecurityQuestionAlertResp.isConfirmed || !getSecurityQuestions().answer == ""){
+            //Before the PIN is fully created and registered into the Database, the Security 
+            postSecurityQuestion();
+        }
+        if(getSecurityQuestions().answer == "" && getSecurityQuestionAlertResp.isConfirmed){
+            Swal.fire({
+                icon: 'error',
+                title: 'PIN Creation Failed',
+                text: 'You must have a Security Question Provided before you can use your PIN!'
+            })
+        }
+    })
+}
+
+//FETCH REQUESTS FOR MULTIPLE DASHBOARD API ENDPOINTS
+
+
+//Function to execute POST Request to create Security Question for User in Question
+function postSecurityQuestion(){
+    let securityQuestData = getSecurityQuestions();
+    console.log(securityQuestData);
+
+    //Fetch POST request to register the User's secret security question
+    fetch(securityQuestion, {
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+            "Authorization": `bearer ${bearer}`
+        },
+        body: JSON.stringify(securityQuestData)
+    }).then((getSecurityQuestionData) => { return getSecurityQuestionData.json()}) //THEN Method for Security Questions
+    .then((getSecurityQuestionsResp) => {
+        console.log(getSecurityQuestionsResp);
+        iziToast.show({
+            color: 'green',
+            position: 'topRight',
+            title: `Pin Successfully Created`,
+            timeout: 10000,
+            drag: true,
+            message: `${getSecurityQuestionsResp.statusMessage}`
+        })
+    })
+}
+
+//Function to execute a PUT Request to make a Transaction
 function makeTransaction(){
     let transferDetails = getTransfer();
     //Fetch request to PUT the details of the current transactions
@@ -208,23 +330,34 @@ function makeTransaction(){
         }
     }).then((transactionData) => { return transactionData.json()}) //THEN Method for Transaction Data
     .then((transactionResp) => {
+        console.log(transactionResp);
         if(transactionResp.status == true){
-            Swal.fire({
-                icon: 'success',
-                title: `Success`,
-                text: `${transactionResp.statusMessage}`
-            })
-        }
-        if(transactionResp.status != true){
-            Swal.fire({
-                icon: 'error',
-                title: `Failed`,
-                text: `${transactionResp.statusMessage}`
-            }).then((swalTransactResp) => {
-                if(swalTransactResp.isConfirmed){
+            iziToast.show({
+                color: 'green',
+                position: 'topRight',
+                title: 'Successful',
+                timeout: 10000,
+                message: `${transactionResp.statusMessage}`,
+                balloon: false,
+                drag: true,
+                onClosing: function (){
                     sendToDashboard();
                 }
             })
+        }
+        if(transactionResp.status != true){
+            iziToast.show({
+                color: 'red',
+                position: 'topRight',
+                title: 'Failed',
+                timeout: 10000,
+                message: `${transactionResp.statusMessage}`,
+                balloon: false,
+                drag: true,
+                onClosing: function (){
+                    sendToDashboard();
+                }
+            });
         }
     })
 }

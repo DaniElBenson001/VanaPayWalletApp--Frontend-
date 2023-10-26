@@ -64,5 +64,17 @@ export function pinInput(){
     }
 }
 
+export function searchAccInput(){
+    return{
+        acc: document.getElementById("accNumInput").value
+    }
+}
+
+export function getSecurityQuestions(){
+    return{
+        question: document.getElementById("question").innerHTML,
+        answer: document.getElementById("answer").value
+    }
+}
 
 //Code for Pagination of Transactions History
