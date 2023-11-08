@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VanaPay Wallet App - Home</title>
+    <link rel="shortcut icon" href="./img/favicon.png"sizes="16x16" type="image/png">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <!-- SIDE NAVIGATION -->
+    <div class="sidenav">
+        <img class="sidenav-logo" src="./img/logo-text.png" alt="">
+
+        <div class="sidenav-button" style="margin-top: 20px;">
+            <a href="dashboard.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-home.png" alt="">
+                <span class="sidenav-text">Dashboard</span>
+            </a>
+        </div>
+        <div class="sidenav-button">
+            <a href="transfer.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/transfer.png" alt="">
+                <span class="sidenav-text">Transfers</span>
+            </a>
+        </div>
+        <div class="sidenav-button">
+            <a href="deposit.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-box.png" alt="">
+                <span class="sidenav-text">Deposit</span>
+            </a>
+        </div>
+        <div class="sidenav-button">
+            <a href="transacHistory.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-notebook.png" alt="">
+                <span class="sidenav-text">Transactions</span>
+            </a>
+        </div>
+        <div class="sidenav-button">
+            <a href="chat.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/Group 5.png" alt="">
+                <span class="sidenav-text">Chat</span>
+            </a>
+        </div>
+        <div class="sidenav-button">
+            <a href="notifications.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/Group 4.png" alt="">
+                <span class="sidenav-text">Notifications</span>
+            </a>
+        </div>
+        <div class="sidenav-button">
+            <a href="settings.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-settings.png" alt="">
+                <span class="sidenav-text">Settings</span>
+            </a>
+        </div>
+        <div class="logout-button">
+            <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-sign-out.png" alt="">
+            <span class="sidenav-text">Logout</span>
+        </div>
+    </div>
+
+    <!-- MAIN PAGE -->
+    <div class="main">
+        <span>
+            <h1 class="title">Transaction History</h1>
+        </span>
+        <span class="talkToAgent">
+            <img src="./img/Ic0ns/fi-rr-headset.png" alt="" class="talkToAgent-icon">
+            Talk to an Agent
+        </span>
+
+        <div class="acc-info">
+            <div><span id="acc-number">2004 678 0980</span> - VanaPay Naira Account </div>
+            <div id="acc-balance">NGN 50,000.00</div>
+        </div>
+        
+        <div id="txn-history">
+            <select name="txn-options" id="txn-history-options"> 
+                <option value="Transaction History for Today" id="recent-transac-oneday">Transaction History for Today</option> 
+                <option value="Transaction History for Yesterday">Transaction History for Yesterday</option> 
+                <option value="Transaction History for the Past 3 Days">Transaction History for the Past 3 Days</option> 
+                <option value="Transaction History for the Past Week">Transaction History for the Past Week</option>  
+                <option value="Transaction History for the Past Month">Transaction History for the Past Month</option>  
+            </select>
+
+            <div id="txn-history-container"></div>
+        </div>
+    </div>
+
+    <script type="module" src="./js/endpoints.js"></script>
+    <script type="module" src="./js/fetchTransacHistory.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</body>
+</html>

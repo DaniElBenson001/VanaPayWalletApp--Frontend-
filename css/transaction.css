@@ -1,0 +1,125 @@
+/* Font Families */
+@font-face{
+    font-family: Satoshi-Regular;
+    src: url(../fonts/SatoshiVariable/Satoshi-Regular.otf);
+}
+
+@font-face{
+    font-family: Satoshi-Medium;
+    src: url(../fonts/SatoshiVariable/Satoshi-Medium.otf);
+}
+
+@font-face{
+    font-family: Satoshi-Bold;
+    src: url(../fonts/SatoshiVariable/Satoshi-Bold.otf);
+}
+
+@font-face{
+    font-family: Satoshi-Black;
+    src: url(../fonts/SatoshiVariable/Satoshi-Black.otf);
+}
+
+body{
+    background: #E4ECF3;
+    font-family: Satoshi-Regular;
+    color: #374957;
+}
+
+a, a:visited{
+    text-decoration: none;
+}
+
+.sidenav{
+    height: 100%;
+    width: 230px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #FFFFFF;
+    padding-top: 20px;
+}
+
+.sidenav-logo{
+    height: 80px;
+    display: block;
+    padding-left: 20px;
+}
+
+.sidenav-button{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+    transition: ease 0.5s;
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.sidenav-button:hover{
+    background: #898A8D23;
+}
+
+.sidenav-icon{
+    width: 20px;
+    height: 20px;
+    display: inline;
+    vertical-align: middle;
+    cursor: pointer;
+    /* margin: 18px 0 6px 0; */
+}
+
+.sidenav-text{
+    font-size: 16px;
+    margin: -1px 0 0 0;
+    padding: 0 0 0 10px;
+    font-family: Satoshi-Medium;
+    color: #374957;
+    cursor: pointer;
+}
+
+.logout-button{
+    margin-top: 120px;
+    background-color: #F0F0F0;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding: 14px 0 14px 40px;
+    transition: ease 0.5s;
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+    border-radius: 8px;
+}
+
+.main{
+    margin-left: 260px;
+    padding: 10px 0 0 0;
+}
+
+.title{
+    font-size: 28px;
+    font-family: Satoshi-Bold;
+    letter-spacing: -1px;
+    padding-top: 10px;
+    display: inline;
+    vertical-align: middle;
+}
+
+.talkToAgent{
+    float: right;
+    padding: 6px 24px 0 0;
+    margin: 0 0 0 10px;
+    font-family: Satoshi-Medium;
+    letter-spacing: -1px;
+    color: #374957;
+    font-size: 18px;
+}
+
+.talkToAgent-icon{
+    width: 18px;
+    height: 18px;
+    display: inline;
+    vertical-align: middle;
+    cursor: pointer;
+}
+

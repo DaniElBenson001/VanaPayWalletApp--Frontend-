@@ -45,8 +45,8 @@ export function getUserSignup(){
 
 export function getTransfer(){
     return{
-        senderAcctNo: document.getElementById("acctNum").innerHTML,
-        receiverAcctNo: document.getElementById("accNumInput").value,
+        senderAcctNo: document.getElementById("acc-number").innerHTML,
+        receiverAcctNo: document.getElementById("accnumber-input").value,
         amount: document.getElementById("amount").value
     }
 }
@@ -66,7 +66,7 @@ export function pinInput(){
 
 export function searchAccInput(){
     return{
-        acc: document.getElementById("accNumInput").value
+        acc: document.getElementById("accnumber-input").value
     }
 }
 

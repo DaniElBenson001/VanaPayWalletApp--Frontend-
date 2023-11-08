@@ -2,18 +2,16 @@ import { randomSecurityQuestion } from "./generateSecurityQuestions.js";
 import { bearer ,transfer, searchByAccNo, pinAvailable, createPin, securityQuestion, dashboardInfo, verifyPin  } from "./endpoints.js";
 import { getTransfer, sendToDashboard, getPin, pinInput, searchAccInput, getSecurityQuestions } from "./main.js";
 
-//Variables to store all Links and API Endpoints for use
+//VARIABLES TO STORE ALL LINKS AND API ENDPOINTS FOR USE
+const accNum = document.getElementById("acc-number");
+const accBalance = document.getElementById("acc-balance");
+const acctNumInput = document.getElementById("accnumber-input");
+const receipientAccName = document.getElementById("beneficiary-accname");
 
-let accNum = document.getElementById("acctNum");
-let accBalance = document.getElementById("balance");
-// const bearer = localStorage.getItem("bearer");
-
-const acctNumInput = document.getElementById("accNumInput");
+const initializeTransfer = document.getElementById("initialize-transfer");
 const amountInput = document.getElementById("amount");
-const makeTransfer = document.getElementById("makeTransfer");
-const receipientAccNo = document.getElementById("receipientAccNo");
 
-//Function to get Account Details of the User in Question
+//FUNCTION TO GET ACCOUNT DETAILS OF THE USER IN QUESTION
 function getAccountInfo(){
     //Fetching the User Account Details for Display
     fetch(dashboardInfo, {
@@ -34,10 +32,18 @@ function getAccountInfo(){
 }
 getAccountInfo();
 
-//Event Listener is used to pop out the provided receiver's account Name for easy confirmation
+//FOCUSOUT EVENT LISTENER TO POP OUT THE PROVIDED RECEIVER'S ACCOUNT NAME FOR EASY CONFIRMATION
 acctNumInput.addEventListener('focusout', function(){
     //Fetch Request to  Automatically Search for the Account Number
     var searchData = searchAccInput();
+    if(searchData.acc == ""){
+        iziToast.show({
+            color: 'blue',
+            position: 'topRight',
+            title: 'Info',
+            message: `Kindly Input a valid account number`
+        })
+    }
     fetch(searchByAccNo, {
         method: "POST",
         headers: {
@@ -48,7 +54,7 @@ acctNumInput.addEventListener('focusout', function(){
     .then((searchAccResp) =>{
         console.log(searchAccResp)
         if(searchAccResp.status === true){
-            receipientAccNo.innerHTML = `${searchAccResp.data.firstName} ${searchAccResp.data.lastName}`
+            receipientAccName.innerHTML = `${searchAccResp.data.firstName} ${searchAccResp.data.lastName}`
         }
         if(searchAccResp.status === false){
             console.log(searchAccResp);
@@ -66,14 +72,13 @@ acctNumInput.addEventListener('focusout', function(){
 })
 
 //SUBMIT EVENT LISTENER TO CONTINUE TRANSACTION
-makeTransfer.addEventListener("click", function(){
+initializeTransfer.addEventListener("click", function(){
     
     //LOGIC TO CHECK IF THE USER ATTEMPTS TO WRITE A CHARACTER THAT IS NOT A DIGIT
     let digitPattern = /^\d+$/;
 
     //FUNCTION TO CALL THE LOGIC IF CHECKS THE VALUES INPUTTED ARE DIGITS OR NOT
     function numberValidator(){
-
         //Checks if both of them are found wanting
         if(!digitPattern.test(amountInput.value) && !digitPattern.test(acctNumInput.value)){
             //Alert - Invalid Input
@@ -128,8 +133,7 @@ makeTransfer.addEventListener("click", function(){
     }
 });
 
-
-//Function to verify a User's PIN
+//FUNCTION TO VERIFY A USER'S PIN
 function verifyUserPIN(){
     //Alert to input the PIN
     Swal.fire({
@@ -187,9 +191,7 @@ function verifyUserPIN(){
     })
 };
 
-
-
-//Function to Create a New PIN
+//FUNCTION TO CREATE A NEW PIN
 function createNewPIN(){
     Swal.fire({
         title: `Create your Pin Here`,
@@ -254,10 +256,7 @@ function createNewPIN(){
     })  
 }
 
-//Function to check the Equality of PIN upon Creation
-
-
-//Function for Security Questions for Future Transactions
+//FUNCTION FOR SECURITY QUESTIONS FOR FUTURE TRANSACTIONS
 function addSecurityQuestions(){
     let sQuestion = randomSecurityQuestion();
     console.log(sQuestion);
@@ -287,10 +286,7 @@ function addSecurityQuestions(){
     })
 }
 
-//FETCH REQUESTS FOR MULTIPLE DASHBOARD API ENDPOINTS
-
-
-//Function to execute POST Request to create Security Question for User in Question
+//FUNCTION TO EXECUTE POST REQUEST TO CREATE SECURITY QUESTION FOR USER IN QUESTION
 function postSecurityQuestion(){
     let securityQuestData = getSecurityQuestions();
     console.log(securityQuestData);
@@ -317,7 +313,7 @@ function postSecurityQuestion(){
     })
 }
 
-//Function to execute a PUT Request to make a Transaction
+//FUNCTION TO EXECUTE A PUT REQUEST TO MAKE A TRANSACTION
 function makeTransaction(){
     let transferDetails = getTransfer();
     //Fetch request to PUT the details of the current transactions
@@ -345,18 +341,18 @@ function makeTransaction(){
                 }
             })
         }
-        if(transactionResp.status != true){
+        else{
             iziToast.show({
-                color: 'red',
-                position: 'topRight',
-                title: 'Failed',
-                timeout: 10000,
-                message: `${transactionResp.statusMessage}`,
-                balloon: false,
-                drag: true,
-                onClosing: function (){
-                    sendToDashboard();
-                }
+            color: 'red',
+            position: 'topRight',
+            title: 'Failed',
+            timeout: 10000,
+            message: `${transactionResp.statusMessage}`,
+            balloon: false,
+            drag: true,
+            onClosing: function (){
+                sendToDashboard();
+            }
             });
         }
     })

@@ -1,5 +1,11 @@
 //Importing Necessary Variables for Fetch Requests to use
-import { bearer, dashboardInfo, txnHistoryurl, pinAvailable } from "./endpoints.js";
+import { bearer, dashboardInfo, txnHistoryurl, pinAvailable, recentTxnHistory } from "./endpoints.js";
+
+//VARIABLES FOR DASHBOARD DOM MANIPULATION
+let username = document.getElementById("username");
+let firstname = document.getElementById("firstname");
+let accountNumber = document.getElementById("account-number");
+let balance = document.getElementById("user-balance");
 
 //HUMANIZED TIME FOR SEAMLESS USER EXPERIENCE
 //Time Variables
@@ -11,21 +17,11 @@ if(timeNow < 12){
     greeting.innerHTML = "Good Morning, ";
 }
 if(timeNow >= 12){
-    greeting.innerHTML = "Good Afternoon, ";
+    greeting.innerHTML = `Good Afternoon,`;
 }
 if(timeNow >= 17){
     greeting.innerHTML = "Good Evening, ";
 }
-//All Functions, Variables and Modules will be duly declared and exported
-
-
-//VARIABLES FOR DASHBOARD DOM MANIPULATION
-let dashboardUsername = document.getElementById("dashboardUsername");
-let dashboardFirstName = document.getElementById("userFirstName");
-let dashboardAccNum = document.getElementById("acctNum");
-let dashboardBal = document.getElementById("acctBalFigure");
-
-
 
 //FETCH REQUESTS FOR MULTIPLE DASHBOARD API ENDPOINTS
 //Fetching if the User has a PIN avaialble
@@ -59,6 +55,7 @@ function pinAvailableFunction(){
 }
 pinAvailableFunction();
 
+
 //Fetching the User Info into His Dashboard
 function getDashboardInfo(){
     fetch(dashboardInfo, {
@@ -73,56 +70,99 @@ function getDashboardInfo(){
     }).then((dashboardInfoResp) => {
         console.log(dashboardInfoResp)
         //For the Username
-        dashboardUsername.innerHTML = `${dashboardInfoResp.userName}`;
+        username.innerHTML = `@${dashboardInfoResp.userName}`;
         
         //For the First Name alone
         let fullName = `${dashboardInfoResp.fullName}`;
-        const firstName = fullName.split(' ')[0];
-        dashboardFirstName.innerHTML = firstName;
+        const splitFirstName = fullName.split(' ')[0];
+        firstname.innerHTML =  `${splitFirstName}`;
         
         //For the Account Number
-        dashboardAccNum.innerHTML = `${dashboardInfoResp.accountNumber}`;
+        accountNumber.innerHTML = `${dashboardInfoResp.accountNumber}`;
     
         //For the Account Balance
-        dashboardBal.innerHTML = `${dashboardInfoResp.balance.toLocaleString("en-US")}`;
+        balance.innerHTML = `NGN ${dashboardInfoResp.balance.toLocaleString("en-US")}`;
     })
 }
 getDashboardInfo();
 
 //Fetching all the Transactions ever made in one sheet
-function getTransactionHistory(){
-    fetch(txnHistoryurl, {
+function getRecentTransactions(){
+    fetch(recentTxnHistory, {
         method: "GET",
         headers: {
             "content-type": "application/json",
             "Authorization": `bearer ${bearer}`
         }
     }).then((data) => {
+        console.log(data);
         return data.json();
     }).then((res) => {
+        console.log(res);
         // console.log(res[0].senderAcctNo);
         let transactionsData = "";
-        res.map((values) => {
-            var transacType = values.transacType;
+        res.data.map((values) => {
             transactionsData += 
             `
-            <tr>
-                <td>
-                    <div class="acctName">${values.senderInfo}</div>
-                    <div class="transactAcctNum">${values.senderAcctNo}</div>
-                </td>
-                <td>${values.amount}</td>
-                <td>
-                    <span>${values.transacType}</span>
-                </td>
-                <td>
-                <div class="acctName">${values.receiverInfo}</div>
-                <div class="transactAcctNum">${values.receiverAcctNo}</div>
-                </td>
-                <td><b>${values.date}</b></td>
-            </tr>`;
+            <div class="recent-txn-card">
+                <div class="txn-card-left">
+                    <div id="date-of-txn">
+                        ${new Date(values.date).toLocaleDateString(undefined, {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit"
+                        })} -
+                        ${new Date(values.date).toLocaleTimeString(undefined, {
+                            hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true
+                        })}
+                    </div>
+                    <div id="txn-account-name">${values.fullname}</div>
+                    <div class="horizontal">
+                        <div id="txn-username">@${values.username} -</div>
+                        <div id="txn-account-number">${values.accNo}</div>
+                    </div>
+                </div>
+                <div class="txn-card-right">
+                    <div id="txn-amount">NGN ${values.amount.toLocaleString("en-US")}</div>
+                    <div>${values.transacType}</div>
+                </div>
+            </div>
+            `
         });
-        document.getElementById("transactionHistory").innerHTML = transactionsData;
+        document.getElementById("recent-txn-history-container").innerHTML = transactionsData;
     })
 }
-getTransactionHistory();
+getRecentTransactions();
+
+
+//FUNCTION TO POP UP THE USER'S CREDENTIALS UPON CLICK
+// acctInfo.addEventListener('click', function () {
+//     fetch(dashboardInfo, {
+//         method: "GET",
+//         headers: {
+//             "content-type": "application/json",
+//             "Authorization": `bearer ${bearer}`
+//         }
+//     }).then((dashboardInfoData) => {
+//         console.log(dashboardInfoData);
+//         return dashboardInfoData.json();
+//     }).then((dashboardInfoResp) => {
+//         console.log(dashboardInfoResp)
+        
+//         Swal.fire({
+//             html:`
+//             <div class="acctInfoImg" style="display: inline-block;">
+//                 <img src="./img/img_avatar.png" alt="" id="acctInfoPic" style= "width: 100px; height: 100px">
+//             </div>
+//             <div style= "font-weight: 600; font-size: 20px"> ${dashboardInfoResp.fullName} </div>
+//             <div style="font-size:14px; font-family: Inter-Regular">
+//                 <span> ${dashboardInfoResp.userName} • </span>
+//                 <span style="font-family: Inter-Bold; color: #378ace;"> ${dashboardInfoResp.accountNumber} </span>
+//             </div>
+//             `
+//           })
+//     })
+
+// });

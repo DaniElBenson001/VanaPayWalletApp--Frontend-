@@ -13,78 +13,80 @@
     </head>
     <body>
         <div class="container">
-            <div class="sideNav">
-                <a href="./dashboard.html">
-                    <div class="tooltip">
-                        <img src="./img/Icons/icons8-top-menu-48.png" alt="" srcset="" class="sidenavIcon" id="home">
-                        <span class="tooltiptext">Dashboard</span>
-                    </div>
-                </a>
-                
-                <a href="./transactions.html">
-                    <div class="tooltip">
-                        <img src="./img/Icons/icons8-ledger-48.png" alt="" srcset="" class="sidenavIcon" id="ledgers">
-                        <span class="tooltiptext">Transactions</span>
-                    </div>
-                </a>
-                <a href="./deposit.html">
-                    <div class="tooltip">
-                        <img src="./img/Icons/icons8-deposit-48 (1).png" alt="" srcset="" class="sidenavIcon" id="deposit">
-                        <span class="tooltiptext">Deposit Money</span>
-                    </div>
-                </a>
-                <a href="./transfer.html">
-                    <div class="tooltip">
-                        <img src="./img/Icons/icons8-send-money-48.png" alt="" srcset="" class="sidenavIcon" id="transfer">
-                        <span class="tooltiptext">Transfer Money</span>
-                    </div>
-                </a>
-                <a href="">
-                    <div class="tooltip">
-                        <img src="./img/Icons/icons8-settings-48.png" alt="" srcset="" class="sidenavIcon">
-                        <span class="tooltiptext">Settings</span>
-                    </div>
-                </a>
-                <a href="./login.html" onclick="logOut()">
-                    <div class="tooltip">
-                        <img src="./img/Icons/icons8-log-out-48.png" alt="" srcset="" class="sidenavIcon logout">
-                        <span class="tooltiptext"> <b style="font-family: RocGrotesk-Bold; color: black;">LogOut</b></span>
-                    </div>
-                </a>
+            <!-- SIDE NAVIGATION -->
+            <div class="sidenav">
+                <img class="sidenav-logo" src="./img/logo-text.png" alt="">
+
+                <div class="sidenav-button" style="margin-top: 20px;">
+                    <a href="dashboard.html">
+                        <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-home.png" alt="">
+                        <span class="sidenav-text">Dashboard</span>
+                    </a>
+                </div>
+                <div class="sidenav-button">
+                    <a href="transfer.html">
+                        <img class="sidenav-icon" src="./img/Ic0ns/transfer.png" alt="">
+                        <span class="sidenav-text">Transfers</span>
+                    </a>
+                </div>
+                <div class="sidenav-button">
+                    <a href="deposit.html">
+                        <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-box.png" alt="">
+                        <span class="sidenav-text">Deposit</span>
+                    </a>
+                </div>
+                <div class="sidenav-button">
+                    <a href="transacHistory.html">
+                        <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-notebook.png" alt="">
+                        <span class="sidenav-text">Transactions</span>
+                    </a>
+                </div>
+                <div class="sidenav-button">
+                    <a href="chat.html">
+                        <img class="sidenav-icon" src="./img/Ic0ns/Group 5.png" alt="">
+                        <span class="sidenav-text">Chat</span>
+                    </a>
+                </div>
+                <div class="sidenav-button">
+                    <a href="notifications.html">
+                        <img class="sidenav-icon" src="./img/Ic0ns/Group 4.png" alt="">
+                        <span class="sidenav-text">Notifications</span>
+                    </a>
+                </div>
+                <div class="sidenav-button">
+                    <a href="settings.html">
+                        <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-settings.png" alt="">
+                        <span class="sidenav-text">Settings</span>
+                    </a>
+                </div>
+                <div class="logout-button">
+                    <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-sign-out.png" alt="">
+                    <span class="sidenav-text">Logout</span>
+                </div>
             </div>
-        </div>
 
             <div class="main">
-                <h1 class="title">Transfer Money</h1>
-                <img src="./img/logoName.png" alt="" class="logo"> 
+                <span>
+                    <div class="title">Transfers</div>
+                </span>
+                <span class="talkToAgent">
+                    <img src="./img/Ic0ns/fi-rr-headset.png" alt="" class="talkToAgent-icon">
+                    Talk to an Agent
+                </span>
 
-                <div style="margin-top: 20px;">
-                    <span class="transfer">
-                        <h1 style="font-size: 30px; font-family: RocGrotesk-Bold;">Enter Account Number</h1>
-                        <input type="text" id="accNumInput" class="input" placeholder="Enter Account Number Here" style="width: 500px; text-align: left; padding: 5px 10px 10px 40px;
-                        margin: 0; transition: ease 0.2s;" maxlength="10">
-                        <div id="receipientAccNo"></div>
-                        <h1 style="font-size: 30px; font-family: RocGrotesk-Bold;">Enter Amount</h1>
-                        <input type="text" id="amount" class="input" placeholder="Enter Amount Here" style="width: 500px; text-align: left; padding: 5px 10px 10px 40px;
-                        margin: 0; transition: ease 0.2s;" maxlength="18">
-                        <div>
-                            <button class="transferButton" id="makeTransfer">CONTINUE</button>
-                        </div>
-                    </span>
-                    <span>
-                        <div class="transferInfoMe" style="background-color: #072844;height: 60px;">
-                            <div class="acctInfoText">
-                                <span id="acctNumTitle" style="padding: 60px;">Account Number</span><br>
-                                <span id="acctNum" style="margin-top: 60px;">100 1111 001</span>
-                            </div>
-                        </div>
-    
-                        <div class="transferInfoMe" style="height: 220px; background-color: #2573B5; color: white;">
-                            <p style="opacity: 80%; font-size: 14px; margin: -20px -100px 0 0;">Need to Deposit? Click Here</p>
-                            <span style="position: absolute; bottom: 0; padding: 0 72px 50px 0; font-size: 15px; right: 0; opacity: 60%;">Account Balance</span>
-                            <div id="balance">10,000</div>
-                        </div>
-                    </span>
+                <div class="acc-info">
+                    <div><span id="acc-number">2004 678 0980</span> - VanaPay Naira Account </div>
+                    <div id="acc-balance">NGN 50,000.00</div>
+                </div>
+
+                <div class="transfer">
+                    <div class="title" style="padding-bottom: 20px;">Make a Transfer Here</div>
+                    <div class="input-title">Enter Beneficiary Account Number:</div>
+                    <input type="text" class="form-input" name="" id="accnumber-input" placeholder="Enter Account Number Here" maxlength="10">
+                    <div id="beneficiary-accname"></div>
+                    <div class="input-title">Enter Amount:</div>
+                    <input type="text" class="form-input" name="" id="amount" placeholder="Enter Amount Here" maxlength="18">
+                    <button id="initialize-transfer">Next</button>  
                 </div>
             </div>
     

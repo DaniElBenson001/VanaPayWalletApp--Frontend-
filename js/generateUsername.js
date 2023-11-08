@@ -33,24 +33,6 @@ export function generateUsername1(){
     suggestedUsername1.innerHTML = generatedUsername1;
 }
 
-//Function to generate Second Username Suggestion
-// export function generateUsername2(){
-//     const inputFirstName = firstname.value;
-//     const inputLastName = lastname.value;
-//     const inputValue = `${inputFirstName} ${inputLastName}`;
-//     let firstLetter = inputFirstName[0];
-//     let lastName = inputValue.split(' ')[1];
-//     generatedUsername2 = (firstLetter + lastName + randomNumber()).toLowerCase();
-//     if (inputValue == ""){
-//         suggestedUsername2.style.display = "none";
-//     }else{
-//         suggestedUsername2.style.display = "inline";
-//     }
-//     suggestedUsername2.innerHTML = generatedUsername2;
-//     console.log(inputValue);
-
-// }
-
 //Function to generate Third Username Suggestion
 export function generateUsername3(){
     const inputValue = firstname.value;

@@ -32,13 +32,13 @@ loginBtn.addEventListener('click', (e) => {
         if(res.statusMessage == "Username/Password is Incorrect!" || res.status == false){
             Swal.fire({
                 title: `Hi, ${getUserLogin().username} `,
-                text: `${res.statusMessage}`,
+                text: `Username or Password is Incorrect`,
                 icon: 'error',
                 confirmButtonText: "OK",
                 confirmButtonColor: '#055496',
             });
         }
-        if(res.statusMessage == "You are Logged in and ready to go")
+        if(res.statusMessage == "You are Logged in")
             Swal.fire({
                 title: `Hi, ${getUserLogin().username} `,
                 text: `${res.statusMessage}`,
