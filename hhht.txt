@@ -1,0 +1,503 @@
+1 Introduction
+The purpose of this document is to state the specification for integration to the Globus Bank 
+Corporate Internet Banking API Services (GCIBAPI) that provides access to our business 
+customers on Corporate Internet Banking who may prefer service level integration of their 
+ERP or accounting platform to enjoy the same services offered on the Globus Bank Corporate 
+Internet Banking (GCIB) platform.
+The GCIBAPI is a set of web services provided for the purpose of transacting through Globus 
+Bank Corporate Internet Banking platform through customers’ ERP system
+This implies that corporate customers with ERP platforms can originate transaction 
+instructions from their ERP platforms and pass same to GCIB for processing.
+Globus Bank through the GCIBAPI portal will provide an electronic access point service that 
+will allow our customers:
+• Process local payment
+o Send payment instructions to the bank through web services to GCIB
+o Receive status of payments executed by GCIB
+o Query for status of transactions instructions sent to GCIB
+o Query for account balance on any of their corporate accounts from GCIB
+o Query for account name of beneficiary to be paid
+• Process customs duty payments
+o Query for list of area commands
+o Query for assessment
+o Send duty payment instructions
+1.1 Validation and Gaining Access
+To gain access to the services, customers are expected to register by filling the GCIB 
+onboarding form provided by the Bank to get detailed information about the customer. 
+Upon onboarding, customer is provided with required details to access the services and can 
+then proceed to the test platform to test out the connectivity and endpoint access.
+1.2 Change Default Password Endpoint
+This Endpoint enables the customer to change the default password shared with the 
+customer. It is the mandatory first step in gaining access to the services.
+Request
+Method URL Content-Type
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 5
+POST /api/Auth/ChangeDefaultPassword application/json
+Headers
+Header Value Type
+Bearer Token string
+Request Json
+{
+"CorpCode": "string",
+"DefaultPassword": "string",
+"NewPassword": "string"
+}
+S/N FIELD DESCRIPTION MANDATORY
+1 CorpCode Customer code assigned to the customer Yes
+2 DefaultPassword The default password shared with the customer Yes
+3 NewPassword New preferred password by the customer Yes
+Response
+Status Response Json
+200 "result": {
+"ResponseCode": "string",
+"ResponseDescription": "string"
+}
+1.3 Generate Token
+The service is mainly for Authentication that will grant access to other endpoints. It is 
+expected that for every method call a token bearer must be generated.
+Request
+Method URL Content-Type
+POST /api/Auth/GenerateToken application/json
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 6
+Request Json
+{
+"CorpCode": "string",
+"Password": "string"
+}
+S/N FIELD DESCRIPTION MANDATORY
+1 CorpCode Customer code assigned to the customer Yes
+2 Password The customer password Yes
+Response
+Status Response Json
+200 "result": {
+"CorpCode": "string",
+"Token": "string",
+"ResponseCode": "string",
+"ResponseDescription": "string"
+}
+1.4 Provided Services
+There are fifteen methods provided for TPPAPI services: 
+• Fund Transfer Services
+• Enquiries Services:
+o Balance Enquiry
+o Transaction Status Enquiry
+o Account Name Enquiry
+• NCS Services
+o Get area commands
+o Get assessment details
+o Make payments 
+The API BaseURL (Sandbox) is: https://app.globusbank.com/CIB_erp 
+The production url will be provided upon completion of test
+Specific details of each method are provided in the following sections below.
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 7
+2 Fund Transfer Services
+This set of services provide the customer with ability to originate payment instructions from 
+their ERP to any local bank in the country.
+The customer can also query for status of transfer done in event of response failure due to 
+any circumstance.
+3.1 Transaction Origination Service
+This service executes a transfer instruction to beneficiaries from the customers’ ERP based 
+on the input provided and returns the transaction status to the calling partner.
+Request
+Method URL Content-Type
+POST /api/Payment/MakeLocalPayment application/json
+Headers
+Header Value Type
+Bearer Token Token generated string
+Request Json
+{
+"SourceAccount": "string",
+"PaymentTypeId": 0,
+"PaymentMethodId": 0,
+"CorporateCode": "string",
+"EnableSingleDebit": true,
+"BatchReference": "string",
+"SingleDebitNarration": "string",
+"PaymentList": [
+{
+"BankCode": "string",
+"Amount": 0,
+"BeneficiaryAccount": "string",
+"BeneficiaryName": "string",
+"Narration": "string",
+"ValueDate": "2021-08-30T12:07:57.129Z"
+}
+]
+}
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 8
+S/N FIELD DESCRIPTION MANDATORY
+1 SourceAccount Customer source Account Yes
+2 PaymentTypeId Method with which the payment is being 
+made:
+1 – Salary payment
+2 – Vendor payment
+3 – Other payment
+Yes
+3 PaymentMethodId Payment type to be used for processing 
+the transactions:
+1 - INSTANT
+2 - NEFT
+3 - RTGS
+Yes
+4 CorporateCode Corporate code assigned to the customer 
+on GCIB
+Yes
+5 EnableSingleDebit Debit customer once for all transactions in 
+the batch
+Yes
+6 BatchReference Reference ID for the batch Yes
+7 SingleDebitNarration Narration to be adopted for the single debit Yes
+8 PaymentList This object provides all beneficiary payment details in the 
+batch
+9 BankCode Beneficiary bank code Yes
+10 Amount Amount to be paid to beneficiary Yes
+11 BeneficiaryAccount Beneficiary account number Yes
+12 BeneficiaryName Beneficiary name Yes
+13 Narration Narration to be sued for the transaction 
+that will be seen by beneficiary
+Yes
+14 ValueDate Date the transaction should be processed Yes
+Response
+Status Response Json
+200 "result": {
+"CorpCode": "string",
+"AccountNumber": "string",
+"BatchReference": "string",
+"ResponseCode": "string",
+"ResponseDescription": "string"
+}
+3.2 Transaction Status Query Service
+This service returns the status of a transaction carried out by a partner. 
+Request
+Method URL Content-Type
+GET /api/Payment/GetPaymentStatus /{batchId} application/json
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 9
+Headers
+Header Value Type
+Bearer 
+Token
+Token generated string
+Request Json
+{
+"BatchId": "string"
+}
+S/N FIELD DESCRIPTION MANDATORY
+1 BatchReference Reference ID for the batch Yes
+Response
+Status Response Json
+200 {
+"Result": [
+{
+"Id": 0,
+"BatchId": "string",
+"SourceAccount": "string",
+"PaymentStatus": "string",
+"PaymentType": "string",
+"PaymentMethod": "string",
+"PaymentDate": "2021-08-30T12:24:28.560Z",
+"ValueDate": "2021-08-30T12:24:28.560Z",
+"Amount": 0,
+"TransactionRef": "string",
+"BeneficiaryAccount": "string",
+"BeneficiaryName": "string",
+"Narration": "string",
+"SingeNarration": "string",
+"SubsidiaryName": "string"
+}
+],
+"ResponseCode": "string",
+"ResponseDescription": "string"
+}
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 10
+3 Enquiry Services
+This set of services provides the partner with ability to query for:
+• Balance Enquiry
+• Account Name Enquiry
+4.1 Balance Enquiry Service
+This service returns the available balance of the requested customer account number.
+Request
+Method URL Content-Type
+POST /api/Payment/GetAccountBalance application/json
+Headers
+Header Value Type
+ClientID Token generated string
+Request Json
+{
+"AccountNumber": "string"
+}
+S/N FIELD DESCRIPTION MANDATORY
+1 AccountNumber Customer account number with the bank Yes
+Response
+Status Response Json
+200 "result": {
+"Result": {
+"AccountName": "string",
+"AccountNumber": "string",
+"Currency": "string",
+"AvailableBalance": 0,
+"LedgerBalance": 0
+},
+"ResponseCode": "string",
+"ResponseDescription": "string"
+}
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 11
+4.2 Account Name Enquiry Service
+This service returns the account name of the requested account number(s). This service can 
+be used to validate account numbers prior to making payments.
+Request
+Method URL Content-Type
+POST /api/Payment/ValidateAccountNumber application/json
+Headers
+Header Value Type
+ClientID Token generated string
+Request Json
+{
+"Accounts": [
+{
+"BankCode": "string",
+"AccountNumber": "string"
+}
+]
+}
+S/N FIELD DESCRIPTION MANDATORY
+1 Accounts The list of accounts to be validated
+2 BankCode The bank code for the account to be validated Yes
+3 AccountNumber The account number to be validated Yes
+Response
+Status Response Json
+200 Response will be an object containing the list of Transfer Generated 
+"result": {
+"Result": [
+{
+"BeneficiaryName": "string",
+"AccountNumber": "string",
+"BankCode": "string"
+}
+],
+"TotalRequest": 0,
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 12
+"TotalValidated": 0,
+"ResponseCode": "string",
+"ResponseDescription": "string"
+}
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 13
+4 Nigeria Customs Duty Payment Services
+This set of services provides the partner with ability to make payments to Nigeria Customs 
+for goods imported into the country. The services in this set include:
+• Get area commands
+• Get assessment details
+• Make payments to customs
+5.1 Get Area Commands Service
+This service returns the available area commands of the Nigeria Customs.
+Request
+Method URL Content-Type
+GET / /api/Ncs/GetAreaCommandList application/json
+Headers
+Header Value Type
+ClientID Token generated string
+Response
+Status Response Json
+200 "result": {
+"Id": 0,
+"AreaCode": "string",
+"Name": "string",
+"Location": "string"
+} "ResponseDescription": "string"
+5.2 Get Assessment Details Service
+This service enables the partner to retrieve the assessment details for a particular 
+assessment received from the Nigeria Customs given the provided assessment parameters.
+Request
+Method URL Content-Type
+POST /api/Ncs/GetAssessment application/json
+Headers
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 14
+Header Value Type
+ClientID Token generated string
+Request Json
+{
+"AreaCommandId": 0,
+"AssessmentYear": "string",
+"AssessmentSerial": "string",
+"AssessmentNumber": "string"
+}
+S/N FIELD DESCRIPTION MANDATORY
+1 AreaCommandId The area command ID of the port of collection Yes
+2 AssessmentYear The year of the assessment Yes
+3 AssessmentSerial The serial number of the assessment Yes
+4 AssessmentNumber The number of the assessment Yes
+Response
+Status Response Json
+200 "result": {
+"AssessmentDetails": {
+"Id": 0,
+"FileId": 0,
+"SADYear": "string",
+"CustomCode": "string",
+"DeclarantCode": "string",
+"DeclarantName": "string",
+"SADAccessmentSerial": "string",
+"SADAssessmentNumber": "string",
+"SADAssessmentDate": "2021-09-09T11:13:35.500Z",
+"CompanyCode": "string",
+"CompanyName": "string",
+"BankCode": "string",
+"BankBranchCode": "string",
+"FormMNumber": "string",
+"Version": "string",
+"TotalAmountToBePaid": 0,
+"AreaCommandCode": "string",
+"InProgress": 0
+},
+"Taxes": [
+{
+"Id": 0,
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 15
+"TaxCode": "string",
+"TaxDescription": "string",
+"TaxAmount": 0,
+"DetailId": 0
+}
+],
+"ResponseCode": "string",
+"ResponseDescription": "string"
+} esponseDescription": "string"
+5.3 Make Duty Payment Service
+This service enables the partner to make payment to Nigeria customs to be able to clear 
+goods at the ports.
+Request
+Method URL Content-Type
+POST /api/Ncs/MakeDutyPayment application/json
+Headers
+Header Value Type
+ClientID Token generated string
+Request Json
+{
+"AssessmentId": 0,
+"CorpCode": "string",
+"Version": "string",
+"AreaCommandId": 0,
+"CommandName": "string",
+"DeclarantName": "string",
+"TotalAmount": 0,
+"ValueDate": "2021-09-09T11:56:19.602Z",
+"SourceAccount": "string",
+"PaymentType": 0,
+"Taxes": [
+{
+"Id": 0,
+"TaxCode": "string",
+"TaxDescription": "string",
+"TaxAmount": 0,
+"DetailId": 0
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 16
+}
+]
+}
+S/N FIELD DESCRIPTION MANDATORY
+1 AssessmentId AssessmentID on the Customs assessment 
+document
+Yes
+2 CorpCode Corporate code assigned to the customer on GCIB Yes
+3 Version SdgVersion as provided in the get assessment Yes
+4 AreaCommandId The area command ID of the port of collection Yes
+5 CommandName The area command name of the port of 
+collection
+Yes
+6 DeclarantName Name of the declarant Yes
+7 TotalAmount Sum of all the taxes Yes
+8 ValueDate Effective date to make payment to Nigeria 
+Customs
+Yes
+9 SourceAccount Account to be debited for the transaction Yes
+10 PaymentType The type of customs payment being made:
+1 - Excise
+2 - SD
+3 - SDG
+Yes
+11 Taxes A collection itemising the list of applicable taxes
+12 Id The tax ID provided in the get assessment Yes
+13 TaxCode The tax code Yes
+14 TaxDescription Description of the tax Yes
+15 TaxAmount Amount of the tax Yes
+16 DetailId Detail ID provided in the get assessment Yes
+Response
+Status Response Json
+200 "result": {
+"PaymentReference": "string",
+"ResponseCode": "string",
+"ResponseDescription": "string"
+}
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 17
+5 Response Codes
+Response Code Description
+00 Completed Successfully
+01 Failed
+09 Exception occurred
+401 Unauthorize
+400 Bad Request
+500 Internal Server Error
+6 Bank Codes
+S/N NAME BANK CODE
+0 GLOBUS BANK 103
+1 ACCESS BANK PLC 044
+2 DIAMOND BANK PLC 063
+3 FIDELITY BANK PLC 070
+4 NIGERIA INTERNATIONAL BANK (CITIBANK) 023
+5 STANBIC IBTC Bank 221
+6 GUARANTY TRUST BANK PLC 058
+7 ECOBANK NIGERIA PLC 050
+8 ZENITH BANK PLC 057
+9 WEMA BANK PLC 035
+10 FIRST BANK OF NIGERIA PLC 011
+
+GLOBUS BANKERP INTEGRATION
+GCIBAPI v1.2 18
+11 UNION BANK OF NIGERIA PLC 032
+12 UNITY BANK PLC 215
+13 STANDARD CHARTERED BANK NIGERIA LTD 068
+14 STERLING BANK PLC 232
+15 KEYSTONE BANK PLC 082
+16 FIRST CITY MONUMENT BANK PLC 214
+17 SKYE BANK PLC 076
+18 UNITED BANK FOR AFRICA 033
+19 HERITAGE BANK 030
+20 JAIZ BANK 301
+21 CORONATION MERCHANT BANK 559
+22 SUN TRUST BANK NIGERIA LTD 100
+23 PROVIDUS BANK 101
+7 Conventions and Status Codes Standard
+• Status - HTTP status code of response.
+• All the possible responses are listed under ‘ResponseCodes’ for each method. Only one 
+of them is issued per request server.
+• All response are in JSON format.
+• All request parameters are mandatory unless explicitly marked as [optional]
+8 Status Codes Standard
+All status codes are standard HTTP status codes. The below ones are used in this API.
+2XX - Success of some kind
+4XX - Error occurred in client’s part
+5XX - Error occurred in server’s par

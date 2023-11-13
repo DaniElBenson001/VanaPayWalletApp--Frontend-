@@ -1,11 +1,15 @@
-import { bearer, dashboardInfo, txnHistoryAsUserurl } from "./endpoints.js";
+import { bearer, dashboardInfo, txnHistoryToday, txnHistoryYesterday, txnHistoryThreeDaysAgo, txnHistorySevenDaysAgo, txnHistoryOneMonthAgo, txnHistoryByDate } from "./endpoints.js";
 
 let accNumber = document.getElementById("acc-number");
 let accBalance = document.getElementById("acc-balance");
 
-// let recTransacOneDay = document.getElementById("recent-transac-oneday");
-let txnHistOptions = document.getElementById("txn-history-options");
-let selectedOption = $(this).children("option-selected").val();
+// let txnHistoryByDate = document.getElementById("");
+
+let txnHistoryForToday = document.getElementById("txn-history-today");
+let txnHistoryForYesterday = document.getElementById("txn-history-yesterday");
+let txnHistoryForThreeDays = document.getElementById("txn-history-threeDaysAgo");
+let txnHistoryForOneWeek = document.getElementById("txn-history-oneWeekAgo");
+let txnHistoryForOneMonth = document.getElementById("txn-history-oneMonthAgo");
 
 function getUserInfo(){
     fetch(dashboardInfo, {
@@ -14,10 +18,8 @@ function getUserInfo(){
         "content-type": "application/json",
         "Authorization": `bearer ${bearer}`
     }
-    }).then((dashboardInfoData) => {
-        console.log(dashboardInfoData);
-        return dashboardInfoData.json();
-    }).then((dashboardInfoResp) => {
+    }).then((dashboardInfoData) => { return dashboardInfoData.json(); })
+    .then((dashboardInfoResp) => {
         console.log(dashboardInfoResp)
         //For the Account Number
         accNumber.innerHTML = `${dashboardInfoResp.accountNumber}`;
@@ -28,43 +30,42 @@ function getUserInfo(){
 getUserInfo();
 
 function getTransactionHistory(){
-    fetch(txnHistoryAsUserurl, {
+    fetch(txnHistoryToday, {
         method: "GET",
         headers: {
             "content-type": "application/json",
             "Authorization": `bearer ${bearer}`
         }
-    }).then((data) => {
-        return data.json();
-    }).then((res) => {
+    }).then((txnHistoryData) => { return txnHistoryData.json(); })
+    .then((txnHistoryResp) => {
         // console.log(res[0].senderAcctNo);
         let transactionsData = "";
-        res.map((values) => {
+        txnHistoryResp.data.map((txnValues) => {
             transactionsData += 
             `
             <div class="txn-card">
                 <div class="txn-card-left">
                     <div id="date-of-txn">
-                        ${new Date(values.date).toLocaleDateString(undefined, {
+                        ${new Date(txnValues.date).toLocaleDateString(undefined, {
                             year: "numeric",
                             month: "2-digit",
                             day: "2-digit"
                         })} -
-                        ${new Date(values.date).toLocaleTimeString(undefined, {
+                        ${new Date(txnValues.date).toLocaleTimeString(undefined, {
                             hour: "2-digit",
                         minute: "2-digit",
                         hour12: true
                         })}
                     </div>
-                    <div id="txn-account-name">${values.fullname}</div>
+                    <div id="txn-account-name">${txnValues.fullname}</div>
                     <div class="horizontal">
-                        <div id="txn-username">@${values.username} -</div>
-                        <div id="txn-account-number">${values.accNo}</div>
+                        <div id="txn-username">@${txnValues.username} -</div>
+                        <div id="txn-account-number">${txnValues.accNo}</div>
                     </div>
                 </div>
                 <div class="txn-card-right">
-                    <div id="txn-amount">NGN ${values.amount.toLocaleString("en-US")}</div>
-                    <div>${values.transacType}</div>
+                    <div id="txn-amount">NGN ${txnValues.amount.toLocaleString("en-US")}</div>
+                    <div>${txnValues.transacType}</div>
                 </div>
             </div>
             `
@@ -72,5 +73,236 @@ function getTransactionHistory(){
         document.getElementById("txn-history-container").innerHTML = transactionsData;
     })
 }
-
 getTransactionHistory();
+
+txnHistoryForToday.addEventListener("click", function(){
+    fetch(txnHistoryToday, {
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+            "Authorization": `bearer ${bearer}`
+        }
+    }).then((txnHistoryData) => { return txnHistoryData.json(); })
+    .then((txnHistoryResp) => {
+        // console.log(res[0].senderAcctNo);
+        let transactionsData = "";
+        txnHistoryResp.data.map((txnValues) => {
+            transactionsData += 
+            `
+            <div class="txn-card">
+                <div class="txn-card-left">
+                    <div id="date-of-txn">
+                        ${new Date(txnValues.date).toLocaleDateString(undefined, {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit"
+                        })} -
+                        ${new Date(txnValues.date).toLocaleTimeString(undefined, {
+                            hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true
+                        })}
+                    </div>
+                    <div id="txn-account-name">${txnValues.fullname}</div>
+                    <div class="horizontal">
+                        <div id="txn-username">@${txnValues.username} -</div>
+                        <div id="txn-account-number">${txnValues.accNo}</div>
+                    </div>
+                </div>
+                <div class="txn-card-right">
+                    <div id="txn-amount">NGN ${txnValues.amount.toLocaleString("en-US")}</div>
+                    <div>${txnValues.transacType}</div>
+                </div>
+            </div>
+            `
+        });
+        document.getElementById("txn-history-container").innerHTML = transactionsData;
+    })
+    // alert("I clicked Today")
+});
+
+txnHistoryForYesterday.addEventListener("click", function(){
+    fetch(txnHistoryYesterday, {
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+            "Authorization": `bearer ${bearer}`
+        }
+    }).then((txnHistoryData) => { return txnHistoryData.json(); })
+    .then((txnHistoryResp) => {
+        // console.log(res[0].senderAcctNo);
+        let transactionsData = "";
+        txnHistoryResp.data.map((txnValues) => {
+            transactionsData += 
+            `
+            <div class="txn-card">
+                <div class="txn-card-left">
+                    <div id="date-of-txn">
+                        ${new Date(txnValues.date).toLocaleDateString(undefined, {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit"
+                        })} -
+                        ${new Date(txnValues.date).toLocaleTimeString(undefined, {
+                            hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true
+                        })}
+                    </div>
+                    <div id="txn-account-name">${txnValues.fullname}</div>
+                    <div class="horizontal">
+                        <div id="txn-username">@${txnValues.username} -</div>
+                        <div id="txn-account-number">${txnValues.accNo}</div>
+                    </div>
+                </div>
+                <div class="txn-card-right">
+                    <div id="txn-amount">NGN ${txnValues.amount.toLocaleString("en-US")}</div>
+                    <div>${txnValues.transacType}</div>
+                </div>
+            </div>
+            `
+        });
+        document.getElementById("txn-history-container").innerHTML = transactionsData;
+    })
+    // alert("I clicked Yesterday")
+});
+
+txnHistoryForThreeDays.addEventListener("click", function(){
+    fetch(txnHistoryThreeDaysAgo, {
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+            "Authorization": `bearer ${bearer}`
+        }
+    }).then((txnHistoryData) => { return txnHistoryData.json(); })
+    .then((txnHistoryResp) => {
+        // console.log(res[0].senderAcctNo);
+        let transactionsData = "";
+        txnHistoryResp.data.map((txnValues) => {
+            transactionsData += 
+            `
+            <div class="txn-card">
+                <div class="txn-card-left">
+                    <div id="date-of-txn">
+                        ${new Date(txnValues.date).toLocaleDateString(undefined, {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit"
+                        })} -
+                        ${new Date(txnValues.date).toLocaleTimeString(undefined, {
+                            hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true
+                        })}
+                    </div>
+                    <div id="txn-account-name">${txnValues.fullname}</div>
+                    <div class="horizontal">
+                        <div id="txn-username">@${txnValues.username} -</div>
+                        <div id="txn-account-number">${txnValues.accNo}</div>
+                    </div>
+                </div>
+                <div class="txn-card-right">
+                    <div id="txn-amount">NGN ${txnValues.amount.toLocaleString("en-US")}</div>
+                    <div>${txnValues.transacType}</div>
+                </div>
+            </div>
+            `
+        });
+        document.getElementById("txn-history-container").innerHTML = transactionsData;
+    })
+    // alert("I clicked Three Days Ago")
+});
+
+txnHistoryForOneWeek.addEventListener("click", function(){
+    fetch(txnHistorySevenDaysAgo, {
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+            "Authorization": `bearer ${bearer}`
+        }
+    }).then((txnHistoryData) => { return txnHistoryData.json(); })
+    .then((txnHistoryResp) => {
+        // console.log(res[0].senderAcctNo);
+        let transactionsData = "";
+        txnHistoryResp.data.map((txnValues) => {
+            transactionsData += 
+            `
+            <div class="txn-card">
+                <div class="txn-card-left">
+                    <div id="date-of-txn">
+                        ${new Date(txnValues.date).toLocaleDateString(undefined, {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit"
+                        })} -
+                        ${new Date(txnValues.date).toLocaleTimeString(undefined, {
+                            hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true
+                        })}
+                    </div>
+                    <div id="txn-account-name">${txnValues.fullname}</div>
+                    <div class="horizontal">
+                        <div id="txn-username">@${txnValues.username} -</div>
+                        <div id="txn-account-number">${txnValues.accNo}</div>
+                    </div>
+                </div>
+                <div class="txn-card-right">
+                    <div id="txn-amount">NGN ${txnValues.amount.toLocaleString("en-US")}</div>
+                    <div>${txnValues.transacType}</div>
+                </div>
+            </div>
+            `
+        });
+        document.getElementById("txn-history-container").innerHTML = transactionsData;
+    })
+    // alert("I clicked One Week Ago")
+});
+
+txnHistoryForOneMonth.addEventListener("click", function(){
+    fetch(txnHistoryOneMonthAgo, {
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+            "Authorization": `bearer ${bearer}`
+        }
+    }).then((txnHistoryData) => { return txnHistoryData.json(); })
+    .then((txnHistoryResp) => {
+        // console.log(res[0].senderAcctNo);
+        let transactionsData = "";
+        txnHistoryResp.data.map((txnValues) => {
+            transactionsData += 
+            `
+            <div class="txn-card">
+                <div class="txn-card-left">
+                    <div id="date-of-txn">
+                        ${new Date(txnValues.date).toLocaleDateString(undefined, {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit"
+                        })} -
+                        ${new Date(txnValues.date).toLocaleTimeString(undefined, {
+                            hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true
+                        })}
+                    </div>
+                    <div id="txn-account-name">${txnValues.fullname}</div>
+                    <div class="horizontal">
+                        <div id="txn-username">@${txnValues.username} -</div>
+                        <div id="txn-account-number">${txnValues.accNo}</div>
+                    </div>
+                </div>
+                <div class="txn-card-right">
+                    <div id="txn-amount">NGN ${txnValues.amount.toLocaleString("en-US")}</div>
+                    <div>${txnValues.transacType}</div>
+                </div>
+            </div>
+            `
+        });
+        document.getElementById("txn-history-container").innerHTML = transactionsData;
+    })
+    // alert("I clicked One Month Ago")
+});
+
+console.log(document.getElementById("start-date").value);

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VanaPay Wallet App - Home</title>
+    <title>VanaPay Wallet App - Transaction History</title>
     <link rel="shortcut icon" href="./img/favicon.png"sizes="16x16" type="image/png">
     <link rel="stylesheet" href="./css/main.css">
 </head>
@@ -78,14 +78,23 @@
         </div>
         
         <div id="txn-history">
-            <select name="txn-options" id="txn-history-options"> 
-                <option value="Transaction History for Today" id="recent-transac-oneday">Transaction History for Today</option> 
-                <option value="Transaction History for Yesterday">Transaction History for Yesterday</option> 
-                <option value="Transaction History for the Past 3 Days">Transaction History for the Past 3 Days</option> 
-                <option value="Transaction History for the Past Week">Transaction History for the Past Week</option>  
-                <option value="Transaction History for the Past Month">Transaction History for the Past Month</option>  
-            </select>
+            <div class="txn-history-functions">
+                <input type="date" name="" id="start-date">
+                <input type="date" name="" id="end-date">
+                <!-- <div class="date-range"></div> -->
+                <span class="date-button">Choose</span>
+                <span class="pdf-button">Export as PDF</span>
+                <span class="xls-button">Export as XLS</span>
+            </div>
 
+            <div class="date-range-container">
+                <div class="date-range-options" id = "txn-history-today">Today</div>
+                <div class="date-range-options" id = "txn-history-yesterday">Yesterday</div>
+                <div class="date-range-options" id = "txn-history-threeDaysAgo">Three Days Ago</div>
+                <div class="date-range-options" id = "txn-history-oneWeekAgo">One Week Ago</div>
+                <div class="date-range-options" id = "txn-history-oneMonthAgo">One Month Ago</div>
+            </div>
+            
             <div id="txn-history-container"></div>
         </div>
     </div>

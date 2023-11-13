@@ -9,6 +9,12 @@ export const bearer = localStorage.getItem("bearer");
 export const txnHistoryurl = `${baseURL}/api/Transaction/getTransactionHistory`;
 export const txnHistoryAsUserurl = `${baseURL}/api/Transaction/getTransactionHistoryAsUser`;
 export const recentTxnHistory = `${baseURL}/api/Transaction/getRecentTransactions`;
+export const txnHistoryByDate = `${baseURL}/api/Transaction/getTransacHistoryByDate`;
+export const txnHistoryToday = `${baseURL}/api/Transaction/getTransacHistoryToday`;
+export const txnHistoryYesterday = `${baseURL}/api/Transaction/getTransacHistoryYesterday`;
+export const txnHistoryThreeDaysAgo = `${baseURL}/api/Transaction/getTransacHistoryThreeDaysAgo`;
+export const txnHistorySevenDaysAgo = `${baseURL}/api/Transaction/getTransacHistorySevenDaysAgo`;
+export const txnHistoryOneMonthAgo = `${baseURL}/api/Transaction/getTransacHistoryOneMonthAgo`;
 
 //API Endpoints(s) for the Dashboard
 export const dashboardInfo = `${baseURL}/api/Dashboard/getDashboardInfo`;

@@ -9,91 +9,66 @@
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-    <div class="container">
-        <div class="sideNav">
-            <a href="./dashboard.html">
-                <div class="tooltip">
-                    <img src="./img/Icons/icons8-top-menu-48.png" alt="" srcset="" class="sidenavIcon" id="home">
-                    <span class="tooltiptext">Dashboard</span>
-                </div>
+    <!-- SIDE NAVIGATION -->
+    <div class="sidenav">
+        <img class="sidenav-logo" src="./img/logo-text.png" alt="">
+
+        <div class="sidenav-button" style="margin-top: 20px;">
+            <a href="dashboard.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-home.png" alt="">
+                <span class="sidenav-text">Dashboard</span>
             </a>
-            
-            <a href="./transactions.html">
-                <div class="tooltip">
-                    <img src="./img/Icons/icons8-ledger-48.png" alt="" srcset="" class="sidenavIcon" id="ledgers">
-                    <span class="tooltiptext">Transactions</span>
-                </div>
+        </div>
+        <div class="sidenav-button">
+            <a href="transfer.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/transfer.png" alt="">
+                <span class="sidenav-text">Transfers</span>
             </a>
-            <a href="./deposit.html">
-                <div class="tooltip">
-                    <img src="./img/Icons/icons8-deposit-48 (1).png" alt="" srcset="" class="sidenavIcon" id="deposit">
-                    <span class="tooltiptext">Deposit Money</span>
-                </div>
+        </div>
+        <div class="sidenav-button">
+            <a href="deposit.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-box.png" alt="">
+                <span class="sidenav-text">Deposit</span>
             </a>
-            <a href="./transfer.html">
-                <div class="tooltip">
-                    <img src="./img/Icons/icons8-send-money-48.png" alt="" srcset="" class="sidenavIcon" id="transfer">
-                    <span class="tooltiptext">Transfer Money</span>
-                </div>
+        </div>
+        <div class="sidenav-button">
+            <a href="transacHistory.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-notebook.png" alt="">
+                <span class="sidenav-text">Transactions</span>
             </a>
-            <a href="">
-                <div class="tooltip">
-                    <img src="./img/Icons/icons8-settings-48.png" alt="" srcset="" class="sidenavIcon">
-                    <span class="tooltiptext">Settings</span>
-                </div>
+        </div>
+        <div class="sidenav-button">
+            <a href="chat.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/Group 5.png" alt="">
+                <span class="sidenav-text">Chat</span>
             </a>
-            <a href="./login.html" onclick="logOut()">
-                <div class="tooltip">
-                    <img src="./img/Icons/icons8-log-out-48.png" alt="" srcset="" class="sidenavIcon logout">
-                    <span class="tooltiptext"> <b style="font-family: RocGrotesk-Bold; color: black;">LogOut</b></span>
-                </div>
+        </div>
+        <div class="sidenav-button">
+            <a href="notifications.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/Group 4.png" alt="">
+                <span class="sidenav-text">Notifications</span>
             </a>
+        </div>
+        <div class="sidenav-button">
+            <a href="settings.html">
+                <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-settings.png" alt="">
+                <span class="sidenav-text">Settings</span>
+            </a>
+        </div>
+        <div class="logout-button">
+            <img class="sidenav-icon" src="./img/Ic0ns/fi-rr-sign-out.png" alt="">
+            <span class="sidenav-text">Logout</span>
         </div>
     </div>
 
     <div class="main">
-        <h1 class="title">Settings</h1>
-        <img src="./img/logoName.png" alt="" class="logo"> 
-
-        <div class="tab-container">
-            <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'Tab1')">Edit Details </button>
-            </div>
-            <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'Tab2')">Change Password</button>
-            </div>
-            <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'Tab3')">Change PIN</button>
-            </div>
-        </div>
-    
-        <div class="tab-content">
-            <div id="Tab1" class="tabcontent active">
-                <h2 class="title" style="color: #055496; padding: 20px; margin: 0; font-size: 40px;">Edit Details</h2>
-                <span style="display: inline;">
-                    <div class="acctInfoImg" style="display: inline-block;">
-                        <img src="./img/img_avatar.png" alt="" id="acctInfoPic" style= "width: 200px; height: 200px">
-                    </div>
-                </span>
-                <span style="width: 50%;">
-                    <div>
-                        <label for="firstname">Enter First Name:</label> <br>
-                        <input type="text" placeholder="Enter First Name Here" class="input" id="firstname"> <br>
-                    </div>
-                
-                </span>
-            </div>
-    
-            <div id="Tab2" class="tabcontent">
-                <h2>Tab 2 Content</h2>
-                <p>This is the content of Tab 2.</p>
-            </div>
-    
-            <div id="Tab3" class="tabcontent">
-                <h2>Tab 3 Content</h2>
-                <p>This is the content of Tab 3.</p>
-            </div>
-        </div>
+        <span>
+            <div class="title">Settings</div>
+        </span>
+        <span class="talkToAgent">
+            <img src="./img/Ic0ns/fi-rr-headset.png" alt="" class="talkToAgent-icon">
+            Talk to an Agent
+        </span>
     </div>
     
     <script src="./js/settings.js"></script>

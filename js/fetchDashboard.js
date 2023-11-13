@@ -1,5 +1,5 @@
 //Importing Necessary Variables for Fetch Requests to use
-import { bearer, dashboardInfo, txnHistoryurl, pinAvailable, recentTxnHistory } from "./endpoints.js";
+import { bearer, dashboardInfo, pinAvailable, recentTxnHistory } from "./endpoints.js";
 
 //VARIABLES FOR DASHBOARD DOM MANIPULATION
 let username = document.getElementById("username");
@@ -64,10 +64,8 @@ function getDashboardInfo(){
             "content-type": "application/json",
             "Authorization": `bearer ${bearer}`
         }
-    }).then((dashboardInfoData) => {
-        console.log(dashboardInfoData);
-        return dashboardInfoData.json();
-    }).then((dashboardInfoResp) => {
+    }).then((dashboardInfoData) => { return dashboardInfoData.json(); })
+    .then((dashboardInfoResp) => {
         console.log(dashboardInfoResp)
         //For the Username
         username.innerHTML = `@${dashboardInfoResp.userName}`;
@@ -94,39 +92,37 @@ function getRecentTransactions(){
             "content-type": "application/json",
             "Authorization": `bearer ${bearer}`
         }
-    }).then((data) => {
-        console.log(data);
-        return data.json();
-    }).then((res) => {
-        console.log(res);
+    }).then((txnHistoryData) => { return txnHistoryData.json(); })
+    .then((txnHistoryResp) => {
+        console.log(txnHistoryResp);
         // console.log(res[0].senderAcctNo);
         let transactionsData = "";
-        res.data.map((values) => {
+        txnHistoryResp.data.map((txnValues) => {
             transactionsData += 
             `
             <div class="recent-txn-card">
                 <div class="txn-card-left">
                     <div id="date-of-txn">
-                        ${new Date(values.date).toLocaleDateString(undefined, {
+                        ${new Date(txnValues.date).toLocaleDateString(undefined, {
                             year: "numeric",
                             month: "2-digit",
                             day: "2-digit"
                         })} -
-                        ${new Date(values.date).toLocaleTimeString(undefined, {
+                        ${new Date(txnValues.date).toLocaleTimeString(undefined, {
                             hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: true
+                            minute: "2-digit",
+                            hour12: true
                         })}
                     </div>
-                    <div id="txn-account-name">${values.fullname}</div>
+                    <div id="txn-account-name">${txnValues.fullname}</div>
                     <div class="horizontal">
-                        <div id="txn-username">@${values.username} -</div>
-                        <div id="txn-account-number">${values.accNo}</div>
+                        <div id="txn-username">@${txnValues.username} -</div>
+                        <div id="txn-account-number">${txnValues.accNo}</div>
                     </div>
                 </div>
                 <div class="txn-card-right">
-                    <div id="txn-amount">NGN ${values.amount.toLocaleString("en-US")}</div>
-                    <div>${values.transacType}</div>
+                    <div id="txn-amount">NGN ${txnValues.amount.toLocaleString("en-US")}</div>
+                    <div>${txnValues.transacType}</div>
                 </div>
             </div>
             `

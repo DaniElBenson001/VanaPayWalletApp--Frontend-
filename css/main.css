@@ -150,22 +150,22 @@ background: #555;
     font-size: 18px;
 }
 
-.loginCard{
+.login-card{
     padding-top: 1.8%;
 }
 
-.loginHeader{
+.login-header{
     color: #000;
     text-align: center;
-    font-family: RocGrotesk-Bold;
+    font-family: Satoshi-Black;
     font-size: 36px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    padding-top: 5px;
+    padding: 5px 0 0 0;
 }
 
-.loginLogo{
+.login-logo{
     width: 100px;
     height: 100px;
     z-index: 1;
@@ -214,9 +214,9 @@ label{
     margin-top: 20px !important;
 }
 
-.forgotPasswordLink{
+.forgot-password-link{
     color: rgba(0, 0, 0, 0.40);
-    font-family: RocGrotesk-Light;
+    font-family: Satoshi-Regular;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -227,18 +227,18 @@ label{
     /* padding-top: 36px; */
 }
 
-.forgotPasswordLink:hover{
+.forgot-password-link:hover{
     color: rgb(0, 0, 0);
-    font-family: RocGrotesk-Bold;
+    font-family: Satoshi-Bold;
 }
 
-.loginButton{
+.login-button{
     width: 300px;
     height: 50px;
     border-radius: 9px;
     margin: 10px;
     font-size: 20px;
-    font-family: RocGrotesk-Bold;
+    font-family: Satoshi-Bold;
     color: #ffffff;
     background-color: #2573B5;
     letter-spacing: 1px;
@@ -246,7 +246,7 @@ label{
     transition: 0.2s;
 }
 
-.loginButton:hover{
+.login-button:hover{
     color: #ffffff;
     background-color: #0b528b;
 }
@@ -254,9 +254,9 @@ label{
 /* SIGNUP SECTION */
 /* -------------------------------------------------------------------------------------------------------------*/
 
-.signupLink{
+.credentials-link{
     color: rgba(0, 0, 0, 0.40);
-    font-family: RocGrotesk-Light;
+    font-family: Satoshi-Regular;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -266,31 +266,31 @@ label{
     transition: 0.2s;
 }
 
-.signupLink:hover{
+.credentials-link:hover{
     color: rgb(0, 0, 0);
-    font-family: RocGrotesk-Bold;
+    font-family: Satoshi-Bold;
 }
 
-.signupButton{
+.signup-button{
     width: 300px;
     height: 50px;
     border-radius: 9px;
     margin: 10px;
     font-size: 20px;
-    font-family: RocGrotesk-Bold;
+    font-family: Satoshi-Bold;
     color: #ffffff;
     background-color: #2573B5;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
     border-style: none;
     transition: 0.2s;
 }
 
-.signupButton:hover{
+.signup-button:hover{
     color: #ffffff;
     background-color: #0b528b;
 }
 
-.signUpBg{
+.signup-background{
     background-size: cover;
     min-width: 102.56662%;
     background-size: cover !important;
@@ -331,13 +331,12 @@ label{
 
 /* SUGGESTED USERNAMES */
 /* -------------------------------------------------------------------------------------------------------------*/
-
+/* 
 .suggestedUsernames{
-    padding-top: 4px;
-    padding-bottom: 4px;
-}
+    padding: 10px 0;
+} */
 
-#suggestedUsername1{
+.suggested-name{
     font-size: 12px;
     padding: 3px;
     padding-bottom: 5px;
@@ -345,27 +344,11 @@ label{
     transition: 0.2s ease;
     font-weight: 600;
     cursor: pointer;
-    font-family: Inter-Regular;
+    font-family: Satoshi-Regular;
     opacity: 100%;
-
 }
 
-#suggestedUsername1:hover{
-    color: #0b528b;
-}
-
-#suggestedUsername3{
-    font-size: 12px;
-    padding: 5px;
-    padding-bottom: 8px;
-    color: #378ace;
-    transition: 0.2s ease;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: Inter-Regular;
-}
-
-#suggestedUsername3:hover{
+.suggested-name:hover{
     color: #0b528b;
 }
 
@@ -462,6 +445,8 @@ label{
     letter-spacing: -1px;
     color: #374957;
     font-size: 18px;
+    transition: 0.2s ease;
+    cursor: pointer;
 }
 
 .talkToAgent-icon{
@@ -615,6 +600,34 @@ label{
 }
 
 
+/* TRANSFER */
+/* ---------------------------------------------------------------------------------------------------------- */
+.deposit{
+    background-color: #FFFFFF;
+    padding: 80px;
+    color: #374957;
+    margin: 32px 24px 10px 0;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+}
+
+
+#initialize-deposit{
+    width: 60%;
+    padding: 12px 90px;
+    background-color: #00457A;
+    border-style: none;
+    font-family: Satoshi-Bold;
+    font-size: 16px;
+    color: #FFFFFF;
+    border-radius: 4px;
+}
+
+
 /* TRANSACTION HISTORY */
 /* ---------------------------------------------------------------------------------------------------------------*/
 .acc-info{
@@ -644,15 +657,6 @@ label{
     text-align: center; 
     display: grid;
     place-items: center;
-}
-
-#txn-history-options{
-    width: 82%;
-    padding: 12px;
-    font-size: 16px;
-    font-family: Satoshi-Regular;
-    color: #374957;
-    border-radius: 2px;
 }
 
 #txn-history-container{
@@ -755,4 +759,102 @@ label{
     color: #FFFFFF;
     border-radius: 4px;
     font-size: 10px;
+}
+
+.date-range-container{
+    width: fit-content;
+    border-radius: 8px;
+    /* padding: 30px; */
+    background-color: #898A8D23;
+    display: flex;
+    flex-direction: row;
+}
+
+.date-range-options{
+    padding: 20px 32px;
+    text-align: center;
+    align-items: center;
+    transition: 0.2s ease-in;
+    cursor: pointer;
+}
+
+.date-range-options:hover{
+    background-color: #374957;
+    color: #FFFFFF;
+    border-radius: 4px;
+}
+
+.date-active{
+    background-color: #374957;
+    color: #FFFFFF;
+    border-radius: 4px;
+}
+
+.txn-history-functions{
+    margin: 3px 0  30px 0;
+    width: 100%;
+}
+
+#start-date, #end-date{
+    width: 19%;
+    padding: 12px;
+    font-family: Satoshi-Medium;
+    border: solid 1px #3749578f;
+    color: #374957;
+}
+
+.date-button{
+    background-color: #0b528b;
+    color: #FFFFFF;
+    font-family: Satoshi-Medium;
+    padding: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.date-button:hover{
+    background-color: #023661;
+    color: #FFFFFF;
+    font-family: Satoshi-Medium;
+    padding: 14px;
+    border-radius: 4px;
+}
+
+.pdf-button{
+    background-color: #e6534b;
+    color: #FFFFFF;
+    font-family: Satoshi-Medium;
+    padding: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.pdf-button:hover{
+    background-color: #bb2921;
+    color: #FFFFFF;
+    font-family: Satoshi-Medium;
+    padding: 14px;
+    border-radius: 4px;
+}
+
+.xls-button{
+    background-color: #3AB86C;
+    color: #FFFFFF;
+    font-family: Satoshi-Medium;
+    padding: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.xls-button:hover{
+    background-color: #25a558;
+    color: #FFFFFF;
+    font-family: Satoshi-Medium;
+    padding: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s ease;
 }

@@ -9,38 +9,35 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="signUpBg">
+    <div class="signup-background">
         <img src="./img/4.jpeg" alt="" srcset="" style="width: 100%;">
     </div>
 
     <div class="signUpContainer">
         <img src="./img/favicon.png" alt="" srcset="" class="signUpLogo">
         <div class="signUpCard">
-            <h1 style="font-family: RocGrotesk-Bold;">Sign Up Here</h1>
+            <h1 style="font-family: Satoshi-Black;">Sign Up Here</h1>
             <form class="signUpForm">
                 <label for="firstname">Enter First Name:</label> <br>
-                <input type="text" placeholder="Enter First Name Here" class="input" id="firstname"> <br>
+                <input type="text" placeholder="Enter First Name Here" class="input" id="firstname" style="font-size: 16px;"> <br>
                 <label for="lastname">Enter Last Name:</label> <br>
                 <input type="text" placeholder="Enter Last Name Here" class="input" id="lastname"> <br>
-                <!-- <label for="lastname">Enter Last Name:</label> <br>
-                <input type="text" placeholder="Enter Last Name Here" class="input" id="lastname"> <br> -->
                 <label for="address">Enter Address:</label> <br>
                 <input type="text" placeholder="Enter Address Here" class="input" id="address"> <br>
                 <label for="emailname">Enter Email:</label> <br>
                 <input type="email" placeholder="Enter Email Here" class="input" id="emailname"> <br>
                 <label for="username">Enter Username:</label> <br>
-                <input type="text" placeholder="Enter Username Here" class="input" id="username"> <br>
+                <input type="text" placeholder="Enter Username Here" class="input" id="username" style="font-size: 16px; color: #374957;"> <br>
                 <div class="suggestedUsernames">
-                    <span id="suggestedUsername1"></span>
-                    <span id="suggestedUsername3"></span> <br>
+                    <span id="suggestedUsername1" class="suggested-name"></span>
+                    <span id="suggestedUsername3" class="suggested-name"></span> <br>
                 </div>
                 <label for="password">Enter Password:</label> <br>
                 <input type="password" placeholder="Enter Password Here" class="input" id="password"> <br>
                 <label for="confirmPassword">Confirm Password:</label> <br>
                 <input type="password" placeholder="Confirm Password Here" class="input" id="confirmPassword"> <br>
-                <!-- <a href="#" class="forgotPasswordLink">Forgot Password? Click Here</a> <br> -->
-                <input type="button" value="Sign Up" class="signupButton" id="signupBtn"><br>
-                <a href="./login.html" class="signupLink">Have an Account? Login Here</a>
+                <input type="button" value="Sign Up" class="signup-button" id="signupBtn"><br>
+                <a href="./login.html" class="credentials-link">Have an Account? Login Here</a>
             </form>
         </div>
     </div>
