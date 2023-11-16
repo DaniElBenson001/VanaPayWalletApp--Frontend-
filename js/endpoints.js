@@ -5,6 +5,9 @@ export const baseURL = "https://localhost:7007";
 //Bearer Tag
 export const bearer = localStorage.getItem("bearer");
 
+//API Endpoints for Registrations
+export const register = 'https://localhost:7007/api/User/register';
+
 //API Endpoints(s) for Transaction
 export const txnHistoryurl = `${baseURL}/api/Transaction/getTransactionHistory`;
 export const txnHistoryAsUserurl = `${baseURL}/api/Transaction/getTransactionHistoryAsUser`;

@@ -13,10 +13,6 @@ export function sendToLogin(){
     location.replace(`http://127.0.0.1:5500/login.html`);
 }
 
-function logOut(){   
-    sendToLogin();
-    localStorage.clear();  
-}
 //load the sign up
 export function sendToSignUp(){
     location.replace(`${mainURL}/signup.html`)
@@ -39,7 +35,6 @@ export function getUserSignup(){
         address: document.getElementById("address").value,
         email: document.getElementById("emailname").value,
         password: document.getElementById("password").value,
-        confirmPassword: document.getElementById("confirmPassword").value
     }
 }
 

@@ -1,11 +1,29 @@
 //Importing Necessary Variables for Fetch Requests to use
 import { bearer, dashboardInfo, pinAvailable, recentTxnHistory } from "./endpoints.js";
+import { sendToLogin } from "./main.js";
 
 //VARIABLES FOR DASHBOARD DOM MANIPULATION
 let username = document.getElementById("username");
 let firstname = document.getElementById("firstname");
 let accountNumber = document.getElementById("account-number");
 let balance = document.getElementById("user-balance");
+
+let logout = document.getElementById("logout");
+
+logout.addEventListener('click', function(){
+    Swal.fire({
+        icon: 'warning',
+        title: 'Are you Sure?',
+        showCancelButton: true,
+        confirmButtonColor: '#055496',
+
+    }).then((logoutAlertResp) => {
+        if(logoutAlertResp.isConfirmed){
+            localStorage.clear();
+            location.replace('http://127.0.0.1:5500/login.html');
+        }
+    })
+})
 
 //HUMANIZED TIME FOR SEAMLESS USER EXPERIENCE
 //Time Variables

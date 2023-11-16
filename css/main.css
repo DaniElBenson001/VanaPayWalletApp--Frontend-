@@ -418,6 +418,11 @@ label{
     flex-direction: row;
     vertical-align: middle;
     border-radius: 8px;
+    cursor: pointer;
+}
+
+.logout-button:hover{
+    background-color: #c2c2c2;
 }
 
 /* MAIN PAGE */

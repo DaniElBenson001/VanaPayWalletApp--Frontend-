@@ -11,6 +11,23 @@ const receipientAccName = document.getElementById("beneficiary-accname");
 const initializeTransfer = document.getElementById("initialize-transfer");
 const amountInput = document.getElementById("amount");
 
+let logout = document.getElementById("logout");
+
+logout.addEventListener('click', function(){
+    Swal.fire({
+        icon: 'warning',
+        title: 'Are you Sure?',
+        showCancelButton: true,
+        confirmButtonColor: '#055496',
+
+    }).then((logoutAlertResp) => {
+        if(logoutAlertResp.isConfirmed){
+            localStorage.clear();
+            location.replace('http://127.0.0.1:5500/login.html');
+        }
+    })
+})
+
 //FUNCTION TO GET ACCOUNT DETAILS OF THE USER IN QUESTION
 function getAccountInfo(){
     //Fetching the User Account Details for Display
@@ -140,7 +157,7 @@ function verifyUserPIN(){
         title: `ENTER YOUR PIN HERE`,
         html: `
         <p> Kindly input your PIN Here </p>
-        <input type= "password" id="pin" class = "swal2-input" placeholder="Enter your Pin Here!">
+        <input type= "password" id="pin" class = "swal2-input" placeholder="Enter your Pin Here!"  maxlength="4">
         `
     }).then((pinAlertResp) => {
         if(pinAlertResp.isConfirmed){
@@ -251,66 +268,8 @@ function createNewPIN(){
                 console.log(createPinResp);
             })
             console.log(getPin());
-            addSecurityQuestions();
         }
     })  
-}
-
-//FUNCTION FOR SECURITY QUESTIONS FOR FUTURE TRANSACTIONS
-function addSecurityQuestions(){
-    let sQuestion = randomSecurityQuestion();
-    console.log(sQuestion);
-    Swal.fire({
-        icon: 'info',
-        html:`
-        <div style = "text-align: center">
-            <h2> SECURITY QUESTION </h2>
-            <p id ="question" style = "font-size: 16px; font-weight: 600; margin-top: -10px"> ${sQuestion} </p>
-            <input style= "margin: 0; font-size: 14px; width: 70%" type= "text" id="answer" class = "swal2-input" placeholder="Enter your Answer Here!">
-        </div>
-        `,
-        confirmButtonText: "Let's Go",
-        confirmButtonColor: '#055496'
-    }).then((getSecurityQuestionAlertResp) => {
-        if(getSecurityQuestionAlertResp.isConfirmed || !getSecurityQuestions().answer == ""){
-            //Before the PIN is fully created and registered into the Database, the Security 
-            postSecurityQuestion();
-        }
-        if(getSecurityQuestions().answer == "" && getSecurityQuestionAlertResp.isConfirmed){
-            Swal.fire({
-                icon: 'error',
-                title: 'PIN Creation Failed',
-                text: 'You must have a Security Question Provided before you can use your PIN!'
-            })
-        }
-    })
-}
-
-//FUNCTION TO EXECUTE POST REQUEST TO CREATE SECURITY QUESTION FOR USER IN QUESTION
-function postSecurityQuestion(){
-    let securityQuestData = getSecurityQuestions();
-    console.log(securityQuestData);
-
-    //Fetch POST request to register the User's secret security question
-    fetch(securityQuestion, {
-        method: "POST",
-        headers: {
-            "content-type": "application/json",
-            "Authorization": `bearer ${bearer}`
-        },
-        body: JSON.stringify(securityQuestData)
-    }).then((getSecurityQuestionData) => { return getSecurityQuestionData.json()}) //THEN Method for Security Questions
-    .then((getSecurityQuestionsResp) => {
-        console.log(getSecurityQuestionsResp);
-        iziToast.show({
-            color: 'green',
-            position: 'topRight',
-            title: `Pin Successfully Created`,
-            timeout: 10000,
-            drag: true,
-            message: `${getSecurityQuestionsResp.statusMessage}`
-        })
-    })
 }
 
 //FUNCTION TO EXECUTE A PUT REQUEST TO MAKE A TRANSACTION
