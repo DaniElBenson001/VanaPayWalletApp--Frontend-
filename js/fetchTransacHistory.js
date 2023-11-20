@@ -1,4 +1,5 @@
 import { bearer, dashboardInfo, txnHistoryToday, txnHistoryYesterday, txnHistoryThreeDaysAgo, txnHistorySevenDaysAgo, txnHistoryOneMonthAgo, txnHistoryByDate } from "./endpoints.js";
+import { logout, autoLogoutFunction } from "./main.js";
 
 let accNumber = document.getElementById("acc-number");
 let accBalance = document.getElementById("acc-balance");
@@ -11,22 +12,8 @@ let txnHistoryForThreeDays = document.getElementById("txn-history-threeDaysAgo")
 let txnHistoryForOneWeek = document.getElementById("txn-history-oneWeekAgo");
 let txnHistoryForOneMonth = document.getElementById("txn-history-oneMonthAgo");
 
-let logout = document.getElementById("logout");
-
-logout.addEventListener('click', function(){
-    Swal.fire({
-        icon: 'warning',
-        title: 'Are you Sure?',
-        showCancelButton: true,
-        confirmButtonColor: '#055496',
-
-    }).then((logoutAlertResp) => {
-        if(logoutAlertResp.isConfirmed){
-            localStorage.clear();
-            location.replace('http://127.0.0.1:5500/login.html');
-        }
-    })
-})
+logout(); //Go to Definition for Details
+autoLogoutFunction(); //Go to Definition for Details
 
 function getUserInfo(){
     fetch(dashboardInfo, {

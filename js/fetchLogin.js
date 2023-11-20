@@ -5,6 +5,21 @@ let buttonIsClicked = false;
 
 const loginBtn = document.getElementById("loginBtn");
 
+const logoutReason = sessionStorage.getItem('logoutReason');
+
+if(logoutReason === 'Inactive'){
+    iziToast.show({
+        color: 'beige',
+        position: 'topRight',
+        title: 'You were Logged Out due to Inactivity! 😪',
+        maxWidth: '400px',
+        balloon: false,
+        timeout: 0
+    })
+    sessionStorage.removeItem('logoutReason');
+}
+
+
 loginBtn.addEventListener('click', (e) => {
     buttonIsClicked = true;
     // loginBtn.style.cursor = "not-allowed";

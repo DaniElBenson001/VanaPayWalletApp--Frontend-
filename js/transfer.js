@@ -1,6 +1,6 @@
 import { randomSecurityQuestion } from "./generateSecurityQuestions.js";
 import { bearer ,transfer, searchByAccNo, pinAvailable, createPin, securityQuestion, dashboardInfo, verifyPin  } from "./endpoints.js";
-import { getTransfer, sendToDashboard, getPin, pinInput, searchAccInput, getSecurityQuestions } from "./main.js";
+import { getTransfer, sendToDashboard, getPin, pinInput, searchAccInput, getSecurityQuestions, logout, autoLogoutFunction } from "./main.js";
 
 //VARIABLES TO STORE ALL LINKS AND API ENDPOINTS FOR USE
 const accNum = document.getElementById("acc-number");
@@ -11,22 +11,8 @@ const receipientAccName = document.getElementById("beneficiary-accname");
 const initializeTransfer = document.getElementById("initialize-transfer");
 const amountInput = document.getElementById("amount");
 
-let logout = document.getElementById("logout");
-
-logout.addEventListener('click', function(){
-    Swal.fire({
-        icon: 'warning',
-        title: 'Are you Sure?',
-        showCancelButton: true,
-        confirmButtonColor: '#055496',
-
-    }).then((logoutAlertResp) => {
-        if(logoutAlertResp.isConfirmed){
-            localStorage.clear();
-            location.replace('http://127.0.0.1:5500/login.html');
-        }
-    })
-})
+logout(); //Go to Definition for Details
+autoLogoutFunction(); //Go to Definition for Details
 
 //FUNCTION TO GET ACCOUNT DETAILS OF THE USER IN QUESTION
 function getAccountInfo(){
@@ -171,17 +157,21 @@ function verifyUserPIN(){
                     "Authorization": `bearer ${bearer}`
                 }
             }).then((verificationData) => { 
-                if(verificationData.status !== 200){
+
+                return verificationData.json()}) //THEN method for Verification Data
+
+            .then((verificationResp) => {
+                console.log(verificationResp);
+                
+                if(verificationResp.status === 400){
                     iziToast.show({
                     color: 'red',
                     position: 'topRight',
                     title: 'Error',
-                    message: `${verificationData.statusText}`
+                    message: `${verificationResp.errors.pin[0]}`
                     })
                 }
-                return verificationData.json()}) //THEN method for Verification Data
-            .then((verificationResp) => {
-                console.log(verificationResp);
+                
 
                 if(verificationResp.status === true){
                     Swal.fire({
@@ -214,9 +204,9 @@ function createNewPIN(){
         title: `Create your Pin Here`,
         icon: 'info',
         html:`<p> Kindly input your Customized Pin for Current and Future Transaction Validations. </p>
-                <input type= "password" id="pin" class = "swal2-input" placeholder="Enter your Pin Here!">
+                <input type= "password" id="pin" class = "swal2-input" placeholder="Enter your Pin Here!" maxLength = "4">
                 <br>
-                <input type= "password" id="pin2" class = "swal2-input" placeholder="Confirm your Pin Here!">`,
+                <input type= "password" id="pin2" class = "swal2-input" placeholder="Confirm your Pin Here!" maxLength = "4">`,
         confirmButtonText: 'CREATE PIN',
         confirmButtonColor: '#055496',
         //Checks whether the Pins provided are One and the Same
@@ -235,14 +225,6 @@ function createNewPIN(){
                 }
             } 
             checkPin();
-            if(checkPin()){
-                iziToast.show({
-                    color: 'red',
-                    position: 'topRight',
-                    title: 'Error',
-                    message: `Kindly Ensure that your PIN are equal!`
-                })
-            }
         }
     }).then((createPinAlertResp) => {
         if(createPinAlertResp.isConfirmed){
@@ -261,11 +243,18 @@ function createNewPIN(){
                     color: 'red',
                     position: 'topRight',
                     title: 'Error',
-                    message: `Kindly Ensure that your PIN are equal!`
+                    message: `Kindly Ensure that you fill in your PIN appropriately!`
                 })
                 return createPinData.json() }) //THEN Method for Creation Data
             .then((createPinResp) => {
                 console.log(createPinResp);
+                if(createPinResp.status === true)
+                iziToast.show({
+                    color: 'green',
+                    position: 'topRight',
+                    title: 'Success',
+                    message: `Your Pin is Successfully Created! 😎`
+                })
             })
             console.log(getPin());
         }
@@ -292,7 +281,7 @@ function makeTransaction(){
                 position: 'topRight',
                 title: 'Successful',
                 timeout: 10000,
-                message: `${transactionResp.statusMessage}`,
+                message: `${transactionResp.statusMessage} 🤑`,
                 balloon: false,
                 drag: true,
                 onClosing: function (){

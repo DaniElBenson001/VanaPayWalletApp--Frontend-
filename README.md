@@ -17,6 +17,10 @@ When you have Function that returns Randomized Data, sending the function itself
 
 ✨ UNDERSTANDING MODULE JAVASCRIPT WRITING SAVES TIME AND ENCOURAGES REFERENCES AND DEFINITIONS
 
+✨ UNABLE TO CONNEXT TO THE SERVER
+
+This issue is very annoying to solve as there are no Error Messages or Warning Suggestions to spool. Hence to avoid this pesky error, kindly review your Code, there is probably a Service you wrongly injected into another service, hence having a service in a service will cause a "Service Dependency Conflict".
+
 # SPECIAL REMINDERS AND ANNOUNCEMENTS
 
 ✨ ALL MY CONSOLE IN ALL FETCH REQUESTS ARE PRIMARILY FOR TESTING, TO ENSURE THAT ALL DATA IS ACCURATELY RETRIEVED FOR CONSUMPTION; THEY

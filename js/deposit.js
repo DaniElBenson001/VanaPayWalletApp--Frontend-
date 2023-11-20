@@ -1,4 +1,5 @@
 import { dashboardInfo, bearer } from "./endpoints.js";
+import { logout, autoLogoutFunction } from "./main.js";
 
 var makeDepositUrl = "http://localhost:7007/api/Payment/initializePayment";
 // const bearer = localStorage.getItem("bearer");
@@ -6,22 +7,8 @@ var makeDepositUrl = "http://localhost:7007/api/Payment/initializePayment";
 const accNum = document.getElementById("acc-number");
 const accBalance = document.getElementById("acc-balance");
 
-let logout = document.getElementById("logout");
-
-logout.addEventListener('click', function(){
-    Swal.fire({
-        icon: 'warning',
-        title: 'Are you Sure?',
-        showCancelButton: true,
-        confirmButtonColor: '#055496',
-
-    }).then((logoutAlertResp) => {
-        if(logoutAlertResp.isConfirmed){
-            localStorage.clear();
-            location.replace('http://127.0.0.1:5500/login.html');
-        }
-    })
-})
+logout(); //Go to Definition for Details
+autoLogoutFunction(); //Go to Definition for Details
 
 function getDepositAmt(){
     return{

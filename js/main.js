@@ -72,4 +72,93 @@ export function getSecurityQuestions(){
     }
 }
 
-//Code for Pagination of Transactions History
+
+export function logout(){
+    let logout = document.getElementById("logout");
+
+    logout.addEventListener('click', function(){
+        Swal.fire({
+            icon: 'warning',
+            title: 'Are you Sure?',
+            showCancelButton: true,
+            confirmButtonColor: '#055496',
+
+        }).then((logoutAlertResp) => {
+            if(logoutAlertResp.isConfirmed){
+                localStorage.clear();
+                location.replace('http://127.0.0.1:5500/login.html');
+            }
+        })
+    })
+}
+
+export function autoLogoutFunction(){
+    let logoutTimer;
+
+    let initialTime = 0;
+    let idleTime = 5;
+    let limitTime = 8;
+
+    clearInterval(logoutTimer);
+
+    function timer(){
+        logoutTimer = setInterval(function(){
+        initialTime++;
+            console.log(initialTime)
+        
+            if(initialTime === idleTime){
+                promptUser();
+                // clearInterval(logoutTimer);
+            }
+
+            if(initialTime === limitTime){
+                logOutUser();
+            }
+        }, 60000);
+    
+    }
+    timer();
+
+    function promptUser(){
+        iziToast.show({
+            color: 'blue',
+            position: 'topRight',
+            title: 'Hi',
+            timeout: 0,
+            message: `Are you still there? You will be logged out after 8 minutes`,
+            balloon: false,
+            drag: true,
+            close: false,
+            buttons: [
+                [`<button> I'm Back </button>`, function(instance, toast){
+                    iziToast.show({
+                        color: 'blue',
+                        position: 'topRight',
+                        title: 'Ok, Make Sure you stay Logged in! 😉',
+                        balloon: true
+                    });
+                    instance.hide({
+                        transitionOut: 'fadeOutDown',
+
+                    }, toast);
+                }]
+            ]
+        })	
+    }
+
+    document.addEventListener('mousemove', resetTimer);
+
+    function resetTimer(){
+        initialTime = 0;
+    }
+
+    //Send to Log Out
+    function logOutUser(){
+        localStorage.clear();
+        sessionStorage.setItem('logoutReason', 'Inactive')
+        location.replace('http://127.0.0.1:5500/login.html');
+    }
+
+    // autoLogout();
+    // document.addEventListener('mousemove', userActivity);
+}

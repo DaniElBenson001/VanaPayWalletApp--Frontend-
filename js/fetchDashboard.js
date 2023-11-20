@@ -1,6 +1,6 @@
 //Importing Necessary Variables for Fetch Requests to use
-import { bearer, dashboardInfo, pinAvailable, recentTxnHistory } from "./endpoints.js";
-import { sendToLogin } from "./main.js";
+import { bearer, dashboardInfo, pinAvailable, recentTxnHistory, createPin } from "./endpoints.js";
+import { sendToLogin, logout, autoLogoutFunction, getPin } from "./main.js";
 
 //VARIABLES FOR DASHBOARD DOM MANIPULATION
 let username = document.getElementById("username");
@@ -8,22 +8,8 @@ let firstname = document.getElementById("firstname");
 let accountNumber = document.getElementById("account-number");
 let balance = document.getElementById("user-balance");
 
-let logout = document.getElementById("logout");
-
-logout.addEventListener('click', function(){
-    Swal.fire({
-        icon: 'warning',
-        title: 'Are you Sure?',
-        showCancelButton: true,
-        confirmButtonColor: '#055496',
-
-    }).then((logoutAlertResp) => {
-        if(logoutAlertResp.isConfirmed){
-            localStorage.clear();
-            location.replace('http://127.0.0.1:5500/login.html');
-        }
-    })
-})
+logout(); //Go to Definition for Details
+autoLogoutFunction(); //Go to Definition for Details
 
 //HUMANIZED TIME FOR SEAMLESS USER EXPERIENCE
 //Time Variables
@@ -64,7 +50,7 @@ function pinAvailableFunction(){
                 buttons: [
                     ['<button style = "font-weight: 600">Create</button>', function (instance, toast) {
                         
-                        alert("Success")
+                        createNewPIN();
                     }, true], // true to focus
                 ]
             })
@@ -73,6 +59,68 @@ function pinAvailableFunction(){
 }
 pinAvailableFunction();
 
+//Create New PIN
+function createNewPIN(){
+    Swal.fire({
+        title: `Create your Pin Here`,
+        icon: 'info',
+        html:`<p> Kindly input your Customized Pin for Current and Future Transaction Validations. </p>
+                <input type= "password" id="pin" class = "swal2-input" placeholder="Enter your Pin Here!" maxLength = "4">
+                <br>
+                <input type= "password" id="pin2" class = "swal2-input" placeholder="Confirm your Pin Here!" maxLength = "4">`,
+        confirmButtonText: 'CREATE PIN',
+        confirmButtonColor: '#055496',
+        //Checks whether the Pins provided are One and the Same
+        //Runs a Pre-confirm Function, that is before clicking the continue/confirm button, it checks the code inside the property and runs it
+        preConfirm: () => {                           
+            //Function to Compare the Pins inputted
+            function checkPin(){
+                const pindata = Swal.getPopup().querySelector('#pin').value;   //Gets the Value of the Proposed User Pin
+                const pindata2 = Swal.getPopup().querySelector('#pin2').value; //Gets the Value of the Proposdd User Pin once more, to the end that Accurate Comparism be made
+                if(pindata != pindata2){
+                    return Swal.fire({
+                        icon: 'error',
+                        text: 'Your Pin or Confirm Pin is not Correct',
+                        confirmButtonColor: '#055496'
+                    })
+                }
+            } 
+            checkPin();
+        }
+    }).then((createPinAlertResp) => {
+        if(createPinAlertResp.isConfirmed){
+            let pinData = getPin();
+            //Fetch POST Request to register the User's customized PIN
+            fetch(createPin, {
+                method: "POST",
+                body: JSON.stringify(pinData),
+                headers: {
+                    "content-type": "application/json",
+                    "Authorization": `bearer ${bearer}`
+                }
+            }).then((createPinData) => {
+                if(createPinData.status !== 200)
+                iziToast.show({
+                    color: 'red',
+                    position: 'topRight',
+                    title: 'Error',
+                    message: `Kindly Ensure that you fill in your PIN appropriately!`
+                })
+                return createPinData.json() }) //THEN Method for Creation Data
+            .then((createPinResp) => {
+                console.log(createPinResp);
+                if(createPinResp.status === true)
+                iziToast.show({
+                    color: 'green',
+                    position: 'topRight',
+                    title: 'Success',
+                    message: `Your Pin is Successfully Created! 😎`
+                })
+            })
+            console.log(getPin());
+        }
+    })  
+}
 
 //Fetching the User Info into His Dashboard
 function getDashboardInfo(){
