@@ -10,7 +10,7 @@ export function sendToDashboard(){
 
 //load the login
 export function sendToLogin(){
-    location.replace(`${mainURL}/login.html`);
+    location.replace(`${mainURL}/index.html`);
 }
 
 //load the sign up
