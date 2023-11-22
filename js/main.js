@@ -1,6 +1,6 @@
 
 
-export var mainURL = "http://127.0.0.1:5500";
+export var mainURL = "https://sour-groups-dance.loca.lt";
 let logoutBtn = document.getElementById("logout");
 
 //load the dashboard
@@ -10,7 +10,7 @@ export function sendToDashboard(){
 
 //load the login
 export function sendToLogin(){
-    location.replace(`http://127.0.0.1:5500/login.html`);
+    location.replace(`${mainURL}/login.html`);
 }
 
 //load the sign up

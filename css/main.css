@@ -820,10 +820,6 @@ label{
 
 .date-button:hover{
     background-color: #023661;
-    color: #FFFFFF;
-    font-family: Satoshi-Medium;
-    padding: 14px;
-    border-radius: 4px;
 }
 
 .pdf-button{
@@ -838,10 +834,6 @@ label{
 
 .pdf-button:hover{
     background-color: #bb2921;
-    color: #FFFFFF;
-    font-family: Satoshi-Medium;
-    padding: 14px;
-    border-radius: 4px;
 }
 
 .xls-button{
@@ -856,10 +848,78 @@ label{
 
 .xls-button:hover{
     background-color: #25a558;
+}
+
+
+/* SETTINGS */
+
+.setting-options{
+    margin: 40px 0;
+}
+
+.setting-options-title{
+    color: #374957;
+    font-family: Satoshi-Black;
+    letter-spacing: -1px;
+    /* padding: 0 0 0 20px; */
+}
+
+.setting-options-pic{
+    display: flex;
+    align-items: center;
+    margin: 0 0 30px 0;
+}
+
+.setting-options-pic-btn{
+    margin: 0 0 0 20px;
+}
+
+.setting-options-btn{
+    background-color: #374957;
     color: #FFFFFF;
     font-family: Satoshi-Medium;
-    padding: 14px;
+    padding: 12px;
     border-radius: 4px;
     cursor: pointer;
     transition: 0.2s ease;
+}
+
+.setting-options-btn:hover{
+    background-color: #16222b;
+}
+
+.change-pic{
+    background-color: #374957;
+    color: #FFFFFF;
+    font-family: Satoshi-Medium;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.change-pic:hover{
+    background-color: #16222b;
+}
+
+.remove-pic{
+    background-color: #c4020200;
+    border: solid 2px #E14942;
+    color: #E14942;
+    font-family: Satoshi-Medium;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.remove-pic:hover{
+    background-color: #E14942;
+    color: #FFFFFF;
+}
+
+
+.user-settings-img{
+    width: 120px;
+    border-radius: 50%;
 }

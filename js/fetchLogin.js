@@ -1,6 +1,7 @@
 import { sendToDashboard, sendToLogin, sendToSignUp, getUserLogin} from "./main.js";
+import { login } from "./endpoints.js";
 
-var login = 'https://localhost:7007/api/Authentication/login';
+
 let buttonIsClicked = false;
 
 const loginBtn = document.getElementById("loginBtn");

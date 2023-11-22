@@ -1,12 +1,12 @@
 //NECESSARY LINKS FOR MULTIPLE API ENDPOINTS
 //Base Uniform Resource Locator
-export const baseURL = "https://localhost:7007";
+export const baseURL = "https://s9fjbvd3-7007.euw.devtunnels.ms";
 
 //Bearer Tag
 export const bearer = localStorage.getItem("bearer");
 
 //API Endpoints for Registrations
-export const register = 'https://localhost:7007/api/User/register';
+export const register = `${baseURL}/api/User/register`;
 
 //API Endpoints(s) for Transaction
 export const txnHistoryurl = `${baseURL}/api/Transaction/getTransactionHistory`;
@@ -25,6 +25,9 @@ export const dashboardInfo = `${baseURL}/api/Dashboard/getDashboardInfo`;
 //API Endpoints(s) for the Transfer
 export const transfer = `${baseURL}/api/Transaction/transfer`;
 export const searchByAccNo = `${baseURL}/api/Search/SearchUserviaAcc`;
+
+//API Endpoints for Authentication
+export const login = `${baseURL}/api/Authentication/login`;
 
 //API Endpoints(s) for the PIN
 export const pinAvailable = `${baseURL}/api/Authentication/pinAvailable`;
