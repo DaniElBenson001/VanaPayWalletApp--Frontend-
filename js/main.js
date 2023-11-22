@@ -1,6 +1,6 @@
 
 
-export var mainURL = "https://sour-groups-dance.loca.lt";
+export var mainURL = "https://danielbenson001.github.io/VanaPayWalletApp--Frontend-/";
 let logoutBtn = document.getElementById("logout");
 
 //load the dashboard
