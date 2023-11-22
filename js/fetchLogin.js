@@ -54,20 +54,8 @@ loginBtn.addEventListener('click', (e) => {
                 confirmButtonColor: '#055496',
             });
         }
-        if(res.statusMessage == "You are Logged in")
-            Swal.fire({
-                title: `Hi, ${getUserLogin().username} `,
-                text: `${res.statusMessage}`,
-                icon: 'success',
-                confirmButtonText: "Let's Go",
-                confirmButtonColor: '#055496',
-                isConfirmed: true
-            }).then((result) => {
-                if(result.isConfirmed){
-                    sendToDashboard();
-                }
-            });
-            // alert(res.statusMessage)
-        
+        if(res.statusMessage == "You are Logged in"){
+            sendToDashboard();
+        }
       })
 });
