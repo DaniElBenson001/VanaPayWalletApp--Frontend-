@@ -86,7 +86,7 @@ export function logout(){
         }).then((logoutAlertResp) => {
             if(logoutAlertResp.isConfirmed){
                 localStorage.clear();
-                location.replace('https://danielbenson001.github.io/VanaPayWalletApp--Frontend-/index.html');
+                location.replace(`${mainURL}/index.html`);
             }
         })
     })
@@ -156,7 +156,7 @@ export function autoLogoutFunction(){
     function logOutUser(){
         localStorage.clear();
         sessionStorage.setItem('logoutReason', 'Inactive')
-        location.replace('https://danielbenson001.github.io/VanaPayWalletApp--Frontend-/index.html');
+        location.replace(`${mainURL}/index.html`);
     }
 
     // autoLogout();
