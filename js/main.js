@@ -86,7 +86,7 @@ export function logout(){
         }).then((logoutAlertResp) => {
             if(logoutAlertResp.isConfirmed){
                 localStorage.clear();
-                location.replace('http://127.0.0.1:5500/login.html');
+                location.replace('https://danielbenson001.github.io/VanaPayWalletApp--Frontend-/login.html');
             }
         })
     })
