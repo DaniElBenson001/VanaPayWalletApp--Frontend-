@@ -7,12 +7,11 @@
 
 The Vanapay Wallet App is a peer-to-peer digital wallet that's automated and seamlessly incorporates APIs. It's carefully designed with a minimalistic approach and employs advanced technology to make financial transactions smooth. Its primary aim is to prioritize user needs and deliver a seamless user experience.
 
+🔬 The current frontend interface lacks responsiveness. For the best user experience, I recommend launching it on desktop devices.
 
-🔬 This is the Frontend Interface, it isn't repsonsive yet so [Best advice, launch on Desktop]
+🔧 The interface has been constructed using HTML, CSS, and Vanilla JavaScript.
 
-🔧 Built using HTML, CSS and Vanilla JavaScript
-
-🙏 Special Thanks to my Internship Supervisor and Senior Colleagues for the Tutorials and Experience in this Project
+🙏 I extend special thanks to my internship supervisor and senior colleagues for their invaluable tutorials and guidance, which contributed significantly to my learning and experience throughout this project.
 
 
 # Here are few Solutions I uncovered to solve menial problems in my Code
