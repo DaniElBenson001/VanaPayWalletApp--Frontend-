@@ -1,4 +1,4 @@
-![VanapayWalletApp](./img/logo%20icon.png | width=300)
+![VanapayWalletApp](./img/logo%20with%20word.png)
 
 # The VanaPay Wallet App
 ## *Frontend Development*
