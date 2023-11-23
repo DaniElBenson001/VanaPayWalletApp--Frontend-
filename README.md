@@ -29,8 +29,6 @@ The Vanapay Wallet App is a peer-to-peer digital wallet that's automated and sea
 
 **Solution ✨ -** Embrace JavaScript Modules, allowing specific functionalities like functions and variables to be exported and accessible across multiple JS files within the project. However, implementing this may pose some challenges, so it's crucial to properly source the related JS files in the HTML document that implements the JS functionalities. This step is essential to prevent any complications that may arise. For more clarity on the subject, I strongly recommend this link from Mozilla Developers Network (Cheers to them, mate 🥂) [Javascript Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
 
----
-
 
 ## *Special Reminders & Announcements 📢*
 
