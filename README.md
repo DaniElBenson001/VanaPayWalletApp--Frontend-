@@ -1,4 +1,4 @@
-![VanapayWalletApp](./img/logo%20icon.png) {:width= "300px" height="200px"}
+![VanapayWalletApp](./img/logo%20icon.png | width=300)
 
 # The VanaPay Wallet App
 ## *Frontend Development*
