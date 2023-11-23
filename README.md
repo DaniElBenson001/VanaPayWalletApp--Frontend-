@@ -3,7 +3,10 @@
 # The VanaPay Wallet App
 ## *Frontend Development*
 
-Abstract 🤓 -
+**Abstract 🤓 -**
+
+The Vanapay Wallet App is a peer-to-peer digital wallet that's automated and seamlessly incorporates APIs. It's carefully designed with a minimalistic approach and employs advanced technology to make financial transactions smooth. Its primary aim is to prioritize user needs and deliver a seamless user experience.
+
 
 🔬 This is the Frontend Interface, it isn't repsonsive yet so [Best advice, launch on Desktop]
 
