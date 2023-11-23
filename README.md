@@ -1,4 +1,4 @@
-<img src="./img/icon.png" alt="Alt text" width="300" height="200">
+![VanapayWalletApp](./img/logo%20icon.png) {:width= "300px" height="200px"}
 
 # The VanaPay Wallet App
 ## *Frontend Development*
