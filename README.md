@@ -1,6 +1,10 @@
-# VanaPayWalletApp--Frontend
+![VanapayWalletApp](./img/logo%20icon.png)
 
-✌ Basically, this Project is one of my very projects I did to create a Peer-2-Peer Wallet App that I called "VANAPAY WALLET APP", designed to make seamless transactions in the Most secured way
+# The VanaPay Wallet App
+---
+## *Frontend Side*
+
+Abstract 🤓 -
 
 🔬 This is the Frontend Interface, it isn't repsonsive yet so [Best advice, launch on Desktop]
 
