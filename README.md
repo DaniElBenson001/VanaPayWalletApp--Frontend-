@@ -1,7 +1,7 @@
-![VanapayWalletApp](./img/logo%20icon.png)
+<img src="./img/icon.png" alt="Alt text" width="300" height="200">
 
 # The VanaPay Wallet App
-## *Frontend Side*
+## *Frontend Development*
 
 Abstract 🤓 -
 
