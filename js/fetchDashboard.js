@@ -21,7 +21,7 @@ if(timeNow < 12){
     greeting.innerHTML = "Good Morning, ";
 }
 if(timeNow >= 12){
-    greeting.innerHTML = `Good Afternoon,`;
+    greeting.innerHTML = `Good Afternoon, `;
 }
 if(timeNow >= 17){
     greeting.innerHTML = "Good Evening, ";
@@ -99,6 +99,7 @@ function createNewPIN(){
                     "Authorization": `bearer ${bearer}`
                 }
             }).then((createPinData) => {
+                console.log(createPinData);
                 if(createPinData.status !== 200)
                 iziToast.show({
                     color: 'red',
