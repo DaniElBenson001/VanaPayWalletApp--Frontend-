@@ -14,7 +14,15 @@ The Vanapay Wallet App is a peer-to-peer digital wallet that's automated and sea
 🙏 I extend special thanks to my internship supervisor and senior colleagues for their invaluable tutorials and guidance, which contributed significantly to my learning and experience throughout this project.
 
 
-# Here are few Solutions I uncovered to solve menial problems in my Code
+## *Scenarios, Problems & Solutions encountered in this Project*
+
+**Scenario 🌌 -** You implemented a Function which randomizes a string of Numbers, and hence you will utilize that function across many blocks in the codebase
+
+**Problem 💥 -** You want to only utilize only the first result of that function across your codebase, but invoking it where needed creates a new result Value at those places required
+
+**Solution ✨ -** Create a variable and call the Function in that variable and apply that variable wherever needed across the codebase, that way, you only get the first value called in that variable.
+
+---
 
 ✨ IF YOU WANT TO RETURN THE EXACT VALUE ACROSS FROM A FUNCTION RANDOMIZER
 
