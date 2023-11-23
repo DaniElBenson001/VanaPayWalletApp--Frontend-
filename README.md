@@ -1,7 +1,6 @@
 ![VanapayWalletApp](./img/logo%20icon.png)
 
 # The VanaPay Wallet App
----
 ## *Frontend Side*
 
 Abstract 🤓 -
