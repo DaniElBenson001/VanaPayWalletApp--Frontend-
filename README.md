@@ -1,6 +1,6 @@
 ![VanapayWalletApp](./img/logo-text-white.png)
 
-# The VanaPay Wallet App
+# VANAPAY WALLET APP
 ## *Frontend Development*
 
 **Abstract 🤓 -**
