@@ -24,11 +24,13 @@ The Vanapay Wallet App is a peer-to-peer digital wallet that's automated and sea
 
 ---
 
-✨ IF YOU WANT TO RETURN THE EXACT VALUE ACROSS FROM A FUNCTION RANDOMIZER
+**Scenario 🌌 -** You have a collection of JS files and it contains several blocks of Functionality and Implementations.
 
-When you have Function that returns Randomized Data, sending the function itself twice or more across the project will return different randomized values at the places it calls -- To solve this, place the function in a variable, and send the Variable, that way you have the same Return Response of the Function across your Project.
+**Problem 💥 -** You realized that these files would be interdependent to each other as the codebase grows, as you are avoiding have functionalities repeated across the entire Code Project.
 
-✨ UNDERSTANDING MODULE JAVASCRIPT WRITING SAVES TIME AND ENCOURAGES REFERENCES AND DEFINITIONS
+**Solution ✨ -** Embrace JavaScript Modules, allowing specific functionalities like functions and variables to be exported and accessible across multiple JS files within the project. However, implementing this may pose some challenges, so it's crucial to properly source the related JS files in the HTML document that implements the JS functionalities. This step is essential to prevent any complications that may arise. For more clarity on the subject, I strongly recommend this link from Mozilla Developers Network (Cheers to them, mate 🥂) [Link](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+
+---
 
 ✨ UNABLE TO CONNEXT TO THE SERVER
 
