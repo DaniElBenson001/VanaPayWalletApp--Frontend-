@@ -1,4 +1,4 @@
-![VanapayWalletApp](./img/logo%20with%20word.png)
+![VanapayWalletApp](./img/logo-text-white.png)
 
 # The VanaPay Wallet App
 ## *Frontend Development*
@@ -30,3 +30,4 @@ This issue is very annoying to solve as there are no Error Messages or Warning S
 
 ✨ ALL MY CONSOLE IN ALL FETCH REQUESTS ARE PRIMARILY FOR TESTING, TO ENSURE THAT ALL DATA IS ACCURATELY RETRIEVED FOR CONSUMPTION; THEY
 ALL WILL BE COMMENTED OUT AND DEACTIVATED UPON FINAL REFACTORING.
+
