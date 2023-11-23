@@ -41,6 +41,6 @@ This issue is very annoying to solve as there are no Error Messages or Warning S
 ✨ ALL MY CONSOLE IN ALL FETCH REQUESTS ARE PRIMARILY FOR TESTING, TO ENSURE THAT ALL DATA IS ACCURATELY RETRIEVED FOR CONSUMPTION; THEY
 ALL WILL BE COMMENTED OUT AND DEACTIVATED UPON FINAL REFACTORING.
 
-![Static Badge](https://img.shields.io/badge/-%40dannybenson-black?style=flat&logo=x&logoColor=%23FFFFFF&labelColor=%23000000&color=%23FFFFFF)(https://twitter.com/_dannybenson)
+[![Static Badge](https://img.shields.io/badge/-%40dannybenson-black?style=flat&logo=x&logoColor=%23FFFFFF&labelColor=%23000000&color=%23FFFFFF)](https://twitter.com/_dannybenson)
 
 
