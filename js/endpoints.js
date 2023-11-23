@@ -1,6 +1,6 @@
 //NECESSARY LINKS FOR MULTIPLE API ENDPOINTS
 //Base Uniform Resource Locator
-export const baseURL = "https://s9fjbvd3-7007.euw.devtunnels.ms";
+export const baseURL = "https://3zwn4tdb-7007.uks1.devtunnels.ms";
 
 //Bearer Tag
 export const bearer = localStorage.getItem("bearer");
