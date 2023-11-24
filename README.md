@@ -1,7 +1,6 @@
 ![VanapayWalletApp](./img/logo-text-white.png)
 
 # VANAPAY WALLET APP
-## **Frontend Development**
 ##  *Introduction 🐎*
 
 The Vanapay Wallet App is a peer-to-peer digital wallet that's automated and seamlessly incorporates APIs. It's carefully designed with a minimalistic approach and employs advanced technology to make financial transactions smooth. Its primary aim is to prioritize user needs and deliver a seamless user experience.
@@ -29,6 +28,13 @@ The Vanapay Wallet App is a peer-to-peer digital wallet that's automated and sea
 
 **Solution ✨ -** Embrace JavaScript Modules, allowing specific functionalities like functions and variables to be exported and accessible across multiple JS files within the project. However, implementing this may pose some challenges, so it's crucial to properly source the related JS files in the HTML document that implements the JS functionalities. This step is essential to prevent any complications that may arise. For more clarity on the subject, I strongly recommend this link from Mozilla Developers Network (Cheers to them, mate 🥂) [Javascript Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
 
+---
+
+**Scenario 🌌 -** The authentication system ensures password verification by comparing the entered password (subjected to hashing and salting) with the stored password (also hashed and salted, residing in a specific database location).
+
+**Problem 💥 -** While developing a Change Password Methodology, there was an accidental mix-up where the newly changed Password Hash got placed in the Salt Table Column, and vice versa.Meanwhile, the Authentication system compares Hash with Hash and Salt with Salt."
+
+**Solution ✨ -** 
 
 ## *Special Reminders & Announcements 📢*
 
