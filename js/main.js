@@ -1,5 +1,5 @@
 
-export var mainURL = "https://danielbenson001.github.io/VanaPayWalletApp--Frontend-";
+export var mainURL = "http://127.0.0.1:5500";
 let logoutBtn = document.getElementById("logout");
 
 //load the dashboard

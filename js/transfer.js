@@ -76,7 +76,6 @@ acctNumInput.addEventListener('focusout', function(){
 
 //SUBMIT EVENT LISTENER TO CONTINUE TRANSACTION
 initializeTransfer.addEventListener("click", function(){
-    
     //LOGIC TO CHECK IF THE USER ATTEMPTS TO WRITE A CHARACTER THAT IS NOT A DIGIT
     let digitPattern = /^\d+$/;
 

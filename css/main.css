@@ -26,6 +26,7 @@ body{
     font-family: Satoshi-Regular;
     /* font-size: 24px; */
     background-color: #E4ECF3;
+    height: 100%;
 }
 
 a, a:visited{
@@ -185,7 +186,7 @@ background: #555;
     font-family: Satoshi-Medium;
     font-size: 16px;
     border-radius: 9px;
-    background-color: rgba(104, 104, 104, 0.11);
+    background-color: rgba(104, 104, 104, 0.171);
     border: none;
 }
 
@@ -386,7 +387,7 @@ label{
 }
 
 .sidenav-button:hover{
-    background: #898A8D23;
+    background: #898a8d5e;
 }
 
 .sidenav-icon{
@@ -922,4 +923,43 @@ label{
 .user-settings-img{
     width: 120px;
     border-radius: 50%;
+}
+
+#securityqa-btn{
+    /* width: 900px; */
+    height: 50px;
+    border-radius: 9px;
+    /* margin: 50px; */
+    font-size: 18px;
+    font-family: Satoshi-Bold;
+    color: #ffffff;
+    background-color: #2573B5;
+    letter-spacing: 0px;
+    border-style: none;
+    transition: 0.2s;
+    padding: 15px 50px;
+    /* align-items: center; */
+    /* margin-left: 2449px; */
+}
+
+.securityqa-card{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 2%;
+    padding-top: 5%;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 20px;
+    z-index: -1;
+    width: 542px;
+    height: fit-content;
+    margin-top: 50px;
+    margin-left: 29%;
+    margin-bottom: 1%;
+    font-size: 14px;
+}
+
+#security-question{
+    font-size: 18px;
+    font-style: none;
+    padding: 0px 40px;
 }
