@@ -12,6 +12,11 @@ export function sendToLogin(){
     location.replace(`${mainURL}/index.html`);
 }
 
+//load security question page
+export function sendToSecurityqa(){
+    location.replace(`${mainURL}/securityqa.html`)
+}
+
 //load the sign up
 export function sendToSignUp(){
     location.replace(`${mainURL}/signup.html`)
@@ -66,8 +71,8 @@ export function searchAccInput(){
 
 export function getSecurityQuestions(){
     return{
-        question: document.getElementById("question").innerHTML,
-        answer: document.getElementById("answer").value
+        question: document.getElementById("security-question").innerHTML,
+        answer: document.getElementById("securityqa-input").value
     }
 }
 

@@ -1,6 +1,9 @@
-import { getSecurityqa } from "./endpoints.js";
+import { addSecurityqa, bearer, getSecurityqa } from "./endpoints.js";
+import { getSecurityQuestions } from "./main.js";
 
-let securityQuestion = document.getElementById("security-question")
+let securityQuestion = document.getElementById("security-question");
+let getNewQuestion = document.getElementById("another-question");
+let securityqaButton = document.getElementById("securityqa-btn");
 
 function getSecurityqaFunction(){
     fetch(getSecurityqa,{
@@ -15,3 +18,24 @@ function getSecurityqaFunction(){
     })
 }
 getSecurityqaFunction();
+
+function addSecurityqaFunction(){
+    let securityqaData = getSecurityQuestions();
+    fetch(addSecurityqa, {
+        method: 'POST',
+        body: JSON.stringify(securityqaData),
+        headers: {
+            "content-type": "application/json",
+            "Authorization": `bearer ${bearer}`
+        }
+    }).then((securityqaData) => {
+        console.log(securityqaData);
+        return securityqaData.json();
+    }).then((securityqaResp) => {
+        console.log(securityqaResp);
+    })
+}
+
+securityqaButton.addEventListener('click', addSecurityqaFunction)
+
+getNewQuestion.addEventListener('click', getSecurityqaFunction);

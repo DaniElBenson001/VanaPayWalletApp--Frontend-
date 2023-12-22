@@ -1,12 +1,14 @@
 //Importing Necessary Variables for Fetch Requests to use
-import { bearer, dashboardInfo, pinAvailable, recentTxnHistory, createPin } from "./endpoints.js";
-import { sendToLogin, logout, autoLogoutFunction, getPin } from "./main.js";
+import { bearer, dashboardInfo, pinAvailable, recentTxnHistory, createPin, securityqaAvailable } from "./endpoints.js";
+import { sendToLogin, logout, autoLogoutFunction, getPin, sendToSecurityqa } from "./main.js";
 
 //VARIABLES FOR DASHBOARD DOM MANIPULATION
 let username = document.getElementById("username");
 let firstname = document.getElementById("firstname");
 let accountNumber = document.getElementById("account-number");
 let balance = document.getElementById("user-balance");
+
+let securityqaModal = document.getElementById("test-securityqa");
 
 logout(); //Go to Definition for Details
 autoLogoutFunction(); //Go to Definition for Details
@@ -123,6 +125,42 @@ function createNewPIN(){
     })  
 }
 
+function securityqaAvailableFunction(){
+    fetch(securityqaAvailable,{
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+            "Authorization": `bearer ${bearer}`
+        }
+    }).then((validationData) => { return validationData.json() }) //THEN Method for Validation Data
+    .then((validationResp) => {
+        console.log(validationResp)
+        if(validationResp.status === false){
+            iziToast.show({
+                color: 'blue',
+                position: 'topRight',
+                title: 'Security Question Feature',
+                message: `Kindly setup a Security Question for extra security in Authentication Purposes`,
+                timeout: 7000,
+                layout: 1,
+                maxWidth: `900px`,
+                drag: true,
+                buttons: [
+                    ['<button style = "font-weight: 600">Create</button>', function (instance, toast) {
+                        sendToSecurityqa();
+                    }, true], // true to focus
+                ]
+            })
+        }
+    })
+}
+securityqaAvailableFunction();
+
+// function addSecurityqa() {
+
+// }
+// addSecurityqa();
+
 //Fetching the User Info into His Dashboard
 function getDashboardInfo(){
     fetch(dashboardInfo, {
@@ -198,6 +236,15 @@ function getRecentTransactions(){
     })
 }
 getRecentTransactions();
+
+
+
+
+
+
+
+
+
 
 
 //FUNCTION TO POP UP THE USER'S CREDENTIALS UPON CLICK

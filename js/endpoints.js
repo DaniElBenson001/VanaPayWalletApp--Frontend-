@@ -40,4 +40,6 @@ export const verifyPin = `${baseURL}/api/Authentication/verifyPin`;
 export const pinAvailable = `${baseURL}/api/Authentication/pinAvailable`;
 
 //API Endpoints(s) for Security Questions & Answers
-export const getSecurityqa = `${baseURL}/api/User/getsecurityqa`
+export const getSecurityqa = `${baseURL}/api/User/getsecurityqa`;
+export const securityqaAvailable = `${baseURL}/api/User/securityqaAvailability`;
+export const addSecurityqa = `${baseURL}/api/User/addSecurityqa`;

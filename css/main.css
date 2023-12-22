@@ -926,8 +926,6 @@ label{
 }
 
 #securityqa-btn{
-    /* width: 900px; */
-    height: 50px;
     border-radius: 9px;
     /* margin: 50px; */
     font-size: 18px;
@@ -937,9 +935,10 @@ label{
     letter-spacing: 0px;
     border-style: none;
     transition: 0.2s;
-    padding: 15px 50px;
-    /* align-items: center; */
-    /* margin-left: 2449px; */
+    padding: 19px 0px;
+    width: 500px;
+    text-align: center;
+    margin: 0px 21px;
 }
 
 .securityqa-card{
@@ -961,5 +960,66 @@ label{
 #security-question{
     font-size: 18px;
     font-style: none;
-    padding: 0px 40px;
+    /* margin: 90px 0px; */
+}
+
+.securityqa-subtitle{
+    color: #3749578f;
+    font-size: 14px;
+    margin-bottom: 23px;
+}
+
+#another-question{
+    color: #374957c2;
+    transition: .2s ease;
+    font-size: 14px;
+    margin: 18px 0 0 0;
+    cursor: pointer;
+}
+
+#another-question:hover{
+    color: #374957;
+    text-decoration: underline;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  animation: fade-in 0.5s ease-in-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.modal-content {
+  line-height: 1.6;
 }

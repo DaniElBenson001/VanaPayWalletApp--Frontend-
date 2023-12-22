@@ -1,6 +1,6 @@
 import { randomSecurityQuestion } from "./generateSecurityQuestions.js";
 import { bearer ,transfer, searchByAccNo, pinAvailable, createPin, securityQuestion, dashboardInfo, verifyPin  } from "./endpoints.js";
-import { getTransfer, sendToDashboard, getPin, pinInput, searchAccInput, getSecurityQuestions, logout, autoLogoutFunction } from "./main.js";
+import { getTransfer, sendToDashboard, getPin, pinInput, searchAccInput, logout, autoLogoutFunction } from "./main.js";
 
 //VARIABLES TO STORE ALL LINKS AND API ENDPOINTS FOR USE
 const accNum = document.getElementById("acc-number");

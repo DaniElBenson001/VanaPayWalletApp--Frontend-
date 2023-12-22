@@ -1,31 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./img/favicon.png"sizes="16x16" type="image/png">
-    <title>VanaPay Wallet App - Sign Up Here</title>
-    <link rel="stylesheet" href="./css/main.css">
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css" integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body style="background-image: linear-gradient(to right, #374957, #40a8f8);">
-    <div class="signUpContainer">
-        <img src="./img/favicon.png" alt="" srcset="" class="signUpLogo">
-        <div class="securityqa-card" style="margin-top: 90px;">
-            <h1 style="font-family: Satoshi-Black;">Add Security Question</h1>
-                <div>Strengthen Account Protection by Personalizing Security Questions.</div>
-                <span id="security-question">Enter Username:</span> <br>
-                <input type="text" placeholder="Enter Answer Here" class="input" id="securityqa-input" style="font-size: 16px; color: #374957;"> <br>
-                <br>
-                <span id="securityqa-btn">Next</span>
-            </div>
-    </div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="./img/favicon.png"sizes="16x16" type="image/png">
+        <title>VanaPay Wallet App </title>
+        <link rel="stylesheet" href="./css/main.css">
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css" integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <body style="background-image: linear-gradient(to right, #374957, #40a8f8);">
+        <div class="signUpContainer">
+            <img src="./img/favicon.png" alt="" srcset="" class="signUpLogo">
+            <div class="securityqa-card" style="margin-top: 90px;">
+                <h1 style="font-family: Satoshi-Black; margin: 2px;">Add Security Question</h1>
+                    <div class="securityqa-subtitle">
+                        Strengthen Account Protection by Personalizing Security Questions. <br>
+                        This will help for Future Authentication Processes
+                    </div>
+                    <span id="security-question"> Question Loading...</span> <br>
+                    <input type="text" placeholder="Enter Answer Here" class="input" id="securityqa-input" style="margin-bottom: -7px;margin-top: 21px;font-size: 16px; color: #374957; width: 500px;"> <br>
+                    <br>
+                    <div id="securityqa-btn">Next</div>
+                    <div id="another-question">Want another Question?</div>
+                </div>
+        </div>
 
-    <script type="module" src="./js/main.js"></script>
-    <script type="module" src="./js/endpoints.js"></script>
-    <script type="module" src="./js/fetchSecurityqa.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
-</body>
-</html>
+        <script type="module" src="./js/main.js"></script>
+        <script type="module" src="./js/endpoints.js"></script>
+        <script type="module" src="./js/fetchSecurityqa.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+    </body>
+    </html>
